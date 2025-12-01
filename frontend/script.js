@@ -1,11 +1,11 @@
-const API_BASE = "https://test-revi.onrender.com"; // ← 実際のバックエンドURLに変更
+const API_BASE = "https://test-revi.onrender.com"; 
 
 async function loadReviews(club) {
   const container = document.getElementById("review-container");
-  if (!container) return;  // レビュー用コンテナがない紹介ページでもエラーにならないよう
+  if (!container) return;
 
   try {
-    const res = await fetch(`${API_BASE}/${club}`);
+    const res = await fetch(`${API_BASE}/api/reviews/${club}`);
     const reviews = await res.json();
     container.innerHTML = "";
 
@@ -17,7 +17,6 @@ async function loadReviews(club) {
         <div class="stars">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</div>
         <div class="comment">${r.comment}</div>
       `;
-      // 編集・削除ボタンを入れたい場合は、条件付きでここに追加
       container.appendChild(div);
     });
   } catch (err) {
@@ -37,11 +36,12 @@ async function submitReview(club) {
   }
 
   try {
-    await fetch(`${API_BASE}/${club}`, {
+    await fetch(`${API_BASE}/api/reviews/${club}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, comment, rating })
     });
+
     document.getElementById("commentForm").reset();
     loadReviews(club);
   } catch (err) {
