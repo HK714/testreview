@@ -49,3 +49,4 @@ async function submitReview(club) {
     alert("投稿に失敗しました。");
   }
 }
+
