@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>ダンス部の感想</title>
+  <title>陸上部の感想</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
@@ -116,13 +116,12 @@
 <body>
 
 <header>
-  <h1>ダンス部の感想</h1>
+  <h1>陸上部の感想</h1>
   <a href="運動部紹介画面.html" style="color: white; font-size: 0.9rem;">← 運動部紹介ページに戻る</a>
 </header>
 
 <div class="review-container" id="review-container">
 
-  <!-- コメント投稿フォーム -->
   <form id="commentForm">
     <h2>感想を書き込む</h2>
     <input type="text" id="nameInput" placeholder="お名前" required />
@@ -144,106 +143,90 @@
 </div>
 
 <script>
-  // ● 固有のキー（ダンス部）
-  const STORAGE_KEY = "danceReviews";
+  const API_URL = "https://test-revi.onrender.com/api/reviews";
+  const clubName = "track"; // ← 陸上部判定用
+  const reviewContainer = document.getElementById("review-container");
+  const form = document.getElementById("commentForm");
 
-  // ユーザーID生成（UUID）
-  if (!localStorage.getItem('userId')) {
-    localStorage.setItem('userId', crypto.randomUUID());
+  // UUID（ユーザー識別用）
+  if (!localStorage.getItem("userId")) {
+    localStorage.setItem("userId", crypto.randomUUID());
   }
-  const currentUserId = localStorage.getItem('userId');
+  const currentUserId = localStorage.getItem("userId");
 
-  const form = document.getElementById('commentForm');
-  const reviewContainer = document.getElementById('review-container');
-
-  // サンプルコメント
-  const sampleReviews = [
-    {
-      name: "2年生・アミ",
-      rating: 5,
-      comment: "ダンスが好きな人なら絶対楽しめる！雰囲気も明るい！",
-      userId: "sample-1"
-    },
-    {
-      name: "1年生・レン",
-      rating: 4,
-      comment: "先輩のレベルが高くて刺激になる！もっと練習したい！",
-      userId: "sample-2"
-    }
-  ];
-
+  // 星の表示
   function starsDisplay(num) {
-    return '★'.repeat(num) + '☆'.repeat(5 - num);
+    return "★".repeat(num) + "☆".repeat(5 - num);
   }
 
-  function addReview(review, index, isLocal) {
-    const newReview = document.createElement('div');
-    newReview.classList.add('review');
+  // レビュー要素生成
+  function createReviewElement(review) {
+    const div = document.createElement("div");
+    div.classList.add("review");
 
-    const nameDiv = document.createElement('div');
-    nameDiv.classList.add('name');
-    nameDiv.textContent = review.name;
+    div.innerHTML = `
+      <div class="name">${review.name}</div>
+      <div class="stars">${starsDisplay(review.rating)}</div>
+      <div class="comment">${review.comment}</div>
+    `;
 
-    const starsDiv = document.createElement('div');
-    starsDiv.classList.add('stars');
-    starsDiv.textContent = starsDisplay(review.rating);
-
-    const commentDiv = document.createElement('div');
-    commentDiv.classList.add('comment');
-    commentDiv.textContent = review.comment;
-
-    newReview.appendChild(nameDiv);
-    newReview.appendChild(starsDiv);
-    newReview.appendChild(commentDiv);
-
-    if (isLocal && review.userId === currentUserId) {
-      const deleteBtn = document.createElement('button');
-      deleteBtn.classList.add('delete-btn');
-      deleteBtn.textContent = '削除';
-      deleteBtn.onclick = () => {
-        if (confirm('このコメントを削除しますか？')) {
-          let storedReviews = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-          storedReviews.splice(index, 1);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(storedReviews));
+    // 削除ボタン（投稿者のみ）
+    if (review.userId === currentUserId) {
+      const btn = document.createElement("button");
+      btn.classList.add("delete-btn");
+      btn.textContent = "削除";
+      btn.onclick = async () => {
+        if (confirm("このコメントを削除しますか？")) {
+          await fetch(`${API_URL}/${review._id}`, { method: "DELETE" });
           loadReviews();
         }
       };
-      newReview.appendChild(deleteBtn);
+      div.appendChild(btn);
     }
 
-    reviewContainer.insertBefore(newReview, form);
+    return div;
   }
 
-  function loadReviews() {
-    const reviewsOnPage = reviewContainer.querySelectorAll('.review');
-    reviewsOnPage.forEach(r => r.remove());
+  // 読み込み
+  async function loadReviews() {
+    const res = await fetch(`${API_URL}?club=${clubName}`);
+    const reviews = await res.json();
 
-    sampleReviews.forEach((rev, i) => addReview(rev, i, false));
+    // 一旦全部消す（フォーム除く）
+    document.querySelectorAll(".review").forEach(r => r.remove());
 
-    const storedReviews = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    storedReviews.forEach((rev, i) => addReview(rev, i, true));
+    // 表示
+    reviews.forEach(r => {
+      reviewContainer.insertBefore(createReviewElement(r), form);
+    });
   }
 
-  form.addEventListener('submit', e => {
+  // 投稿
+  form.addEventListener("submit", async e => {
     e.preventDefault();
 
-    const name = document.getElementById('nameInput').value.trim();
-    const comment = document.getElementById('commentInput').value.trim();
+    const name = document.getElementById("nameInput").value.trim();
+    const comment = document.getElementById("commentInput").value.trim();
     const rating = form.rating.value;
 
-    if (!name || !comment) return alert('お名前と感想は必ず入力してください。');
-    if (!rating) return alert('評価を選んでください。');
+    if (!rating) {
+      alert("評価を選んでください！");
+      return;
+    }
 
     const newReview = {
       name,
       rating: Number(rating),
       comment,
-      userId: currentUserId
+      userId: currentUserId,
+      club: clubName
     };
 
-    const storedReviews = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    storedReviews.push(newReview);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(storedReviews));
+    await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newReview)
+    });
 
     form.reset();
     loadReviews();
