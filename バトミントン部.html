@@ -29,7 +29,6 @@
       margin-bottom: 1.5rem;
       border-bottom: 1px solid #ddd;
       padding-bottom: 1rem;
-      position: relative;
     }
     .name {
       font-weight: bold;
@@ -95,23 +94,6 @@
     button:hover {
       background-color: #21618c;
     }
-    /* 削除ボタン */
-    .delete-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: #e74c3c;
-      border: none;
-      color: white;
-      padding: 0.2rem 0.6rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: background-color 0.3s;
-    }
-    .delete-btn:hover {
-      background-color: #c0392b;
-    }
   </style>
 </head>
 <body>
@@ -122,141 +104,96 @@
 </header>
 
 <div class="review-container" id="review-container">
-  <!-- コメント投稿フォーム -->
-  <form id="commentForm">
-    <h2>感想を書き込む</h2>
-    <input type="text" id="nameInput" placeholder="お名前" required />
-    <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
-
-    <div>
-      <label>評価（星1〜5）:</label>
-      <div class="rating" id="rating">
-        <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
-        <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
-        <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
-        <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
-        <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
-      </div>
-    </div>
-
-    <button type="submit">投稿する</button>
-  </form>
+  <!-- コメント一覧が動的にここへ -->
 </div>
 
+<form id="commentForm">
+  <h2>感想を書き込む</h2>
+  <input type="text" id="nameInput" placeholder="お名前" required />
+  <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
+
+  <div>
+    <label>評価（星1〜5）:</label>
+    <div class="rating" id="rating">
+      <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars">★</label>
+      <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">★</label>
+      <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">★</label>
+      <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">★</label>
+      <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">★</label>
+    </div>
+  </div>
+
+  <button type="submit">投稿する</button>
+</form>
+
 <script>
-  // ユーザーID生成（UUID）
-  if (!localStorage.getItem('userId')) {
-    localStorage.setItem('userId', crypto.randomUUID());
-  }
-  const currentUserId = localStorage.getItem('userId');
+  // -------- API 設定（サッカー部と同じ仕様） --------
+  const API_BASE = "https://test-revi.onrender.com/api/reviews";
+  const clubKey = "badminton";
+  // -----------------------------------------------------
 
-  const form = document.getElementById('commentForm');
-  const reviewContainer = document.getElementById('review-container');
-
-  // サンプルコメント（削除不可）
-  const sampleReviews = [
-    {
-      name: "2年生・ユウト",
-      rating: 5,
-      comment: "ラリーが続くと達成感がすごい！部活が楽しいです！",
-      userId: "sample-1"
-    },
-    {
-      name: "1年生・ミナト",
-      rating: 4,
-      comment: "初心者でも先輩が優しく教えてくれた！",
-      userId: "sample-2"
-    },
-  ];
-
-  // 星表示
+  // 星の表示
   function starsDisplay(num) {
     return '★'.repeat(num) + '☆'.repeat(5 - num);
   }
 
-  // レビュー追加
-  function addReview(review, index, isLocal) {
-    const newReview = document.createElement('div');
-    newReview.classList.add('review');
-
-    const nameDiv = document.createElement('div');
-    nameDiv.classList.add('name');
-    nameDiv.textContent = review.name;
-
-    const starsDiv = document.createElement('div');
-    starsDiv.classList.add('stars');
-    starsDiv.textContent = starsDisplay(review.rating);
-
-    const commentDiv = document.createElement('div');
-    commentDiv.classList.add('comment');
-    commentDiv.textContent = review.comment;
-
-    newReview.appendChild(nameDiv);
-    newReview.appendChild(starsDiv);
-    newReview.appendChild(commentDiv);
-
-    // 削除ボタン（自分のレビューのみ）
-    if (isLocal && review.userId === currentUserId) {
-      const deleteBtn = document.createElement('button');
-      deleteBtn.classList.add('delete-btn');
-      deleteBtn.textContent = '削除';
-      deleteBtn.onclick = () => {
-        if (confirm('このコメントを削除しますか？')) {
-          const storedReviews = JSON.parse(localStorage.getItem('badmintonReviews') || '[]');
-          storedReviews.splice(index, 1);
-          localStorage.setItem('badmintonReviews', JSON.stringify(storedReviews));
-          loadReviews();
-        }
-      };
-      newReview.appendChild(deleteBtn);
-    }
-
-    reviewContainer.insertBefore(newReview, form);
-  }
-
   // レビュー読み込み
-  function loadReviews() {
-    const reviewsOnPage = reviewContainer.querySelectorAll('.review');
-    reviewsOnPage.forEach(r => r.remove());
+  async function loadReviews() {
+    const container = document.getElementById("review-container");
+    container.innerHTML = "";
 
-    sampleReviews.forEach((rev, i) => addReview(rev, i, false));
+    try {
+      const res = await fetch(`${API_BASE}/${clubKey}`);
+      if (!res.ok) throw new Error("レビュー取得に失敗");
 
-    const storedReviews = JSON.parse(localStorage.getItem('badmintonReviews') || '[]');
-    storedReviews.forEach((rev, i) => addReview(rev, i, true));
+      const reviews = await res.json();
+      reviews.forEach(r => {
+        const div = document.createElement("div");
+        div.classList.add("review");
+        div.innerHTML = `
+          <div class="name">${r.name}</div>
+          <div class="stars">${starsDisplay(r.rating)}</div>
+          <div class="comment">${r.comment}</div>
+        `;
+        container.appendChild(div);
+      });
+    } catch (err) {
+      console.error(err);
+      container.innerHTML = "<p>レビューの読み込みに失敗しました。</p>";
+    }
   }
 
   // 投稿処理
-  form.addEventListener('submit', e => {
+  document.getElementById("commentForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    const name = document.getElementById('nameInput').value.trim();
-    const comment = document.getElementById('commentInput').value.trim();
-    const rating = form.rating.value;
+    const name = document.getElementById("nameInput").value.trim();
+    const comment = document.getElementById("commentInput").value.trim();
+    const rating = Number(document.querySelector("input[name='rating']:checked")?.value);
 
-    if (!name || !comment) {
-      alert('お名前と感想は必ず入力してください。');
-      return;
-    }
-    if (!rating) {
-      alert('評価を選んでください。');
+    if (!name || !comment || !rating) {
+      alert("お名前・感想・評価をすべて入力してください。");
       return;
     }
 
-    const newReview = {
-      name,
-      rating: Number(rating),
-      comment,
-      userId: currentUserId
-    };
+    try {
+      const res = await fetch(`${API_BASE}/${clubKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, comment, rating })
+      });
 
-    const storedReviews = JSON.parse(localStorage.getItem('badmintonReviews') || '[]');
-    storedReviews.push(newReview);
-    localStorage.setItem('badmintonReviews', JSON.stringify(storedReviews));
+      if (!res.ok) throw new Error("投稿に失敗");
 
-    form.reset();
-    loadReviews();
+      document.getElementById("commentForm").reset();
+      loadReviews();
+    } catch (err) {
+      console.error(err);
+      alert("投稿に失敗しました。時間をおいて再度お試しください。");
+    }
   });
 
+  // 初期表示
   loadReviews();
 </script>
 
