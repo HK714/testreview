@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .account-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 42px;
+      height: 42px;
+      background: #444;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      transition: 0.25s ease;
+      z-index: 1000;
+    }
+    .account-btn:hover { background: #555; transform: translateY(-2px); }
+    .account-btn svg { width: 22px; height: 22px; fill: white; }
+
+    .account-menu {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      width: 180px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      padding: 15px;
+      display: none;
+      z-index: 1001;
+    }
+    .account-menu .username-display {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .account-menu button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 8px;
+      border: none;
+      border-radius: 8px;
+      background: #2c3e50;
+      color: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: 0.25s;
+    }
+    .account-menu button:hover { background: #3d5063; }
+
+    header.hero {
+      height: 45vh;
+      background: url("新座総合技術高等学校校舎.jpg") center/cover no-repeat;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    header.hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    header.hero .text-box {
+      position: relative;
+      color: white;
+      padding: 1.4rem 2rem;
+      backdrop-filter: blur(7px);
+      background: rgba(255,255,255,0.2);
+      border-radius: 16px;
+    }
+    header.hero h1 { margin: 0; font-size: 2.5rem; font-weight: 600; }
+
+    .menu-area {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .card {
+      width: 240px;
+      background: #fff;
+      padding: 1.4rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      transition: .25s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    .card h3 { margin: 0 0 10px 0; font-size: 1.3rem; color: #2c7be5; font-weight: 600; }
+
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    .account-edit {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 1002;
+    }
+    .account-edit h3 { margin-top: 0; margin-bottom: 12px; text-align: center; }
+    .account-edit label { font-size: 0.85rem; }
+    .account-edit input {
+      width: 100%;
+      padding: 6px 8px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+    }
+    .account-edit button {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+      background: #2c3e50;
+      color: white;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+    .account-edit button:hover { background: #3d5063; }
+  </style>
+</head>
+<body>
+
+  <div class="account-btn" id="accountBtn">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v1.2h19.2v-1.2c0-3.2-6.4-4.8-9.6-4.8z"/>
+    </svg>
+  </div>
+  
+  <div class="account-menu" id="accountMenu">
+    <div class="username-display" id="menuUsername"></div>
+    <button id="accountDetailBtn">アカウント詳細</button>
+    <button onclick="logout()">ログアウト</button>
+  </div>
+
+  <div class="account-edit" id="accountEdit">
+    <h3>アカウント詳細</h3>
+
+    <label>ユーザー名</label>
+    <input type="text" id="editUsername" />
+
+    <label>メールアドレス</label>
+    <input type="email" id="editEmail" />
+
+    <label>現在のパスワード</label>
+    <input type="password" id="oldPassword" />
+
+    <label>新しいパスワード</label>
+    <input type="password" id="editPassword" />
+
+    <button id="saveAccountBtn">保存</button>
+  </div>
+
+  <header class="hero">
+    <div class="text-box">
+      <h1>コブコミ</h1>
+    </div>
+  </header>
+
+  <div class="menu-area">
+    <a class="card" href="部活選択画面.html">
+      <h3>部活選択</h3>
+      <p>あなたの所属する部活動を選択できます。</p>
+    </a>
+    
+    <a class="card" href="科内選択画面.html">
+      <h3>科内選択</h3>
+      <p>科ごとのコミュニティへ移動します。</p>
+    </a>
+  </div>
+
+  <footer>
+    © 2025 新総アプリ. All rights reserved.
+  </footer>
+
+  <script>
+    const currentEmail = localStorage.getItem("currentUser");
+    if (!currentEmail) {
+      alert("ログインしてください");
+      location.href = "index.html";
+    }
+
+    const accountBtn = document.getElementById("accountBtn");
+    const accountMenu = document.getElementById("accountMenu");
+    const accountDetailBtn = document.getElementById("accountDetailBtn");
+    const accountEdit = document.getElementById("accountEdit");
+    const saveAccountBtn = document.getElementById("saveAccountBtn");
+    const menuUsername = document.getElementById("menuUsername");
+
+    let user = JSON.parse(localStorage.getItem("user_" + currentEmail));
+    menuUsername.textContent = user.username;
+
+    accountBtn.addEventListener("click", () => {
+      accountMenu.style.display = accountMenu.style.display === "block" ? "none" : "block";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!accountBtn.contains(e.target) && !accountMenu.contains(e.target) && !accountEdit.contains(e.target)) {
+        accountMenu.style.display = "none";
+        accountEdit.style.display = "none";
+      }
+    });
+
+    accountDetailBtn.addEventListener("click", () => {
+      document.getElementById("editUsername").value = user.username;
+      document.getElementById("editEmail").value = user.email;
+      document.getElementById("oldPassword").value = "";
+      document.getElementById("editPassword").value = "";
+      accountEdit.style.display = "block";
+      accountMenu.style.display = "none";
+    });
+
+    saveAccountBtn.addEventListener("click", () => {
+      const newUsername = document.getElementById("editUsername").value;
+      const newEmail = document.getElementById("editEmail").value;
+      const newPassword = document.getElementById("editPassword").value;
+      const oldPassword = document.getElementById("oldPassword").value;
+
+      if (oldPassword !== user.password) {
+        alert("現在のパスワードが正しくありません");
+        return;
+      }
+
+      if (!newEmail.endsWith("@st.spec.ed.jp")) {
+        alert("メールアドレスは @st.spec.ed.jp のみ利用できます");
+        return;
+      }
+
+      if (!/^[0-9]*$/.test(newPassword)) {
+        alert("数字のみを使用してください");
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        alert("6文字以上にしてください");
+        return;
+      }
+
+      if (newEmail !== user.email) {
+        localStorage.removeItem("user_" + user.email);
+      }
+
+      user.username = newUsername;
+      user.email = newEmail;
+      user.password = newPassword;
+
+      localStorage.setItem("user_" + newEmail, JSON.stringify(user));
+      localStorage.setItem("currentUser", newEmail);
+
+      menuUsername.textContent = newUsername;
+
+      alert("アカウント情報を更新しました");
+      accountEdit.style.display = "none";
+    });
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      alert("ログアウトしました");
+      location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
