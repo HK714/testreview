@@ -67,9 +67,7 @@
       cursor: pointer;
       user-select: none;
     }
-    .rating input {
-      display: none;
-    }
+    .rating input { display: none; }
     .rating label {
       color: #ccc;
       transition: color 0.3s;
@@ -104,7 +102,7 @@
 </header>
 
 <div class="review-container" id="review-container">
-  <!-- コメント一覧が動的にここに表示 -->
+  <!-- コメント一覧が動的に追加される -->
 </div>
 
 <form id="commentForm">
@@ -127,25 +125,23 @@
 </form>
 
 <script>
-  // --------------------------
-  // バックエンド設定
-  // --------------------------
+  // -------- 共通設定 --------
   const API_BASE = "https://test-revi.onrender.com/api/reviews";
-  const clubKey = "softball";
+  const clubKey = "softball";   // ← ソフトボール部
 
   // 星表示
   function starsDisplay(num) {
-    return '★'.repeat(num) + '☆'.repeat(5 - num);
+    return "★".repeat(num) + "☆".repeat(5 - num);
   }
 
-  // レビュー読み込み
+  // レビュー取得
   async function loadReviews() {
     const container = document.getElementById("review-container");
     container.innerHTML = "";
 
     try {
       const res = await fetch(`${API_BASE}/${clubKey}`);
-      if (!res.ok) throw new Error("読み込みエラー");
+      if (!res.ok) throw new Error("取得失敗");
 
       const reviews = await res.json();
 
@@ -160,13 +156,13 @@
         container.appendChild(div);
       });
 
-    } catch (err) {
-      container.innerHTML = "<p>レビューの取得に失敗しました。</p>";
+    } catch (e) {
+      container.innerHTML = "<p>レビューが読み込めませんでした。</p>";
     }
   }
 
   // 投稿処理
-  document.getElementById("commentForm").addEventListener("submit", async (e) => {
+  document.getElementById("commentForm").addEventListener("submit", async e => {
     e.preventDefault();
 
     const name = document.getElementById("nameInput").value.trim();
@@ -190,12 +186,11 @@
       document.getElementById("commentForm").reset();
       loadReviews();
 
-    } catch (err) {
-      alert("投稿に失敗しました。時間を置いて再度お試しください。");
+    } catch (e) {
+      alert("投稿に失敗しました。時間をおいて再度お試しください。");
     }
   });
 
-  // ページ読み込み時に実行
   loadReviews();
 </script>
 
