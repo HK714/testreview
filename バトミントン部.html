@@ -29,6 +29,7 @@
       margin-bottom: 1.5rem;
       border-bottom: 1px solid #ddd;
       padding-bottom: 1rem;
+      position: relative;
     }
     .name {
       font-weight: bold;
@@ -104,7 +105,7 @@
 </header>
 
 <div class="review-container" id="review-container">
-  <!-- コメント一覧が動的にここへ -->
+  <!-- コメント一覧が動的にここに入ります -->
 </div>
 
 <form id="commentForm">
@@ -127,12 +128,12 @@
 </form>
 
 <script>
-  // -------- API 設定（サッカー部と同じ仕様） --------
+  // -------- サーバー設定（サッカー部と同じ） --------
   const API_BASE = "https://test-revi.onrender.com/api/reviews";
   const clubKey = "badminton";
-  // -----------------------------------------------------
+  // -----------------------------------------------
 
-  // 星の表示
+  // 星表示用関数
   function starsDisplay(num) {
     return '★'.repeat(num) + '☆'.repeat(5 - num);
   }
