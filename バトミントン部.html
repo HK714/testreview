@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>バドミントン部の感想</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #2980b9;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .review-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+    .review {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1rem;
+      position: relative;
+    }
+    .name {
+      font-weight: bold;
+    }
+    .stars {
+      color: #f39c12;
+      margin-top: 0.3rem;
+    }
+    .comment {
+      margin-top: 0.5rem;
+      white-space: pre-wrap;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    form {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+    }
+    .rating {
+      display: flex;
+      gap: 0.3rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .rating input {
+      display: none;
+    }
+    .rating label {
+      color: #ccc;
+      transition: color 0.3s;
+    }
+    .rating input:checked ~ label,
+    .rating label:hover,
+    .rating label:hover ~ label {
+      color: #f39c12;
+    }
+    button {
+      width: 120px;
+      padding: 0.6rem;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #21618c;
+    }
+    /* 削除ボタン */
+    .delete-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #e74c3c;
+      border: none;
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background-color 0.3s;
+    }
+    .delete-btn:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>バドミントン部の感想</h1>
+  <a href="運動部紹介画面.html" style="color: white; font-size: 0.9rem;">← 運動部紹介ページに戻る</a>
+</header>
+
+<div class="review-container" id="review-container">
+  <!-- コメント投稿フォーム -->
+  <form id="commentForm">
+    <h2>感想を書き込む</h2>
+    <input type="text" id="nameInput" placeholder="お名前" required />
+    <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
+
+    <div>
+      <label>評価（星1〜5）:</label>
+      <div class="rating" id="rating">
+        <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
+        <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
+        <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
+        <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
+        <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
+      </div>
+    </div>
+
+    <button type="submit">投稿する</button>
+  </form>
+</div>
+
+<script>
+  // ユーザーID生成（UUID）
+  if (!localStorage.getItem('userId')) {
+    localStorage.setItem('userId', crypto.randomUUID());
+  }
+  const currentUserId = localStorage.getItem('userId');
+
+  const form = document.getElementById('commentForm');
+  const reviewContainer = document.getElementById('review-container');
+
+  // サンプルコメント（削除不可）
+  const sampleReviews = [
+    {
+      name: "2年生・ユウト",
+      rating: 5,
+      comment: "ラリーが続くと達成感がすごい！部活が楽しいです！",
+      userId: "sample-1"
+    },
+    {
+      name: "1年生・ミナト",
+      rating: 4,
+      comment: "初心者でも先輩が優しく教えてくれた！",
+      userId: "sample-2"
+    },
+  ];
+
+  // 星表示
+  function starsDisplay(num) {
+    return '★'.repeat(num) + '☆'.repeat(5 - num);
+  }
+
+  // レビュー追加
+  function addReview(review, index, isLocal) {
+    const newReview = document.createElement('div');
+    newReview.classList.add('review');
+
+    const nameDiv = document.createElement('div');
+    nameDiv.classList.add('name');
+    nameDiv.textContent = review.name;
+
+    const starsDiv = document.createElement('div');
+    starsDiv.classList.add('stars');
+    starsDiv.textContent = starsDisplay(review.rating);
+
+    const commentDiv = document.createElement('div');
+    commentDiv.classList.add('comment');
+    commentDiv.textContent = review.comment;
+
+    newReview.appendChild(nameDiv);
+    newReview.appendChild(starsDiv);
+    newReview.appendChild(commentDiv);
+
+    // 削除ボタン（自分のレビューのみ）
+    if (isLocal && review.userId === currentUserId) {
+      const deleteBtn = document.createElement('button');
+      deleteBtn.classList.add('delete-btn');
+      deleteBtn.textContent = '削除';
+      deleteBtn.onclick = () => {
+        if (confirm('このコメントを削除しますか？')) {
+          const storedReviews = JSON.parse(localStorage.getItem('badmintonReviews') || '[]');
+          storedReviews.splice(index, 1);
+          localStorage.setItem('badmintonReviews', JSON.stringify(storedReviews));
+          loadReviews();
+        }
+      };
+      newReview.appendChild(deleteBtn);
+    }
+
+    reviewContainer.insertBefore(newReview, form);
+  }
+
+  // レビュー読み込み
+  function loadReviews() {
+    const reviewsOnPage = reviewContainer.querySelectorAll('.review');
+    reviewsOnPage.forEach(r => r.remove());
+
+    sampleReviews.forEach((rev, i) => addReview(rev, i, false));
+
+    const storedReviews = JSON.parse(localStorage.getItem('badmintonReviews') || '[]');
+    storedReviews.forEach((rev, i) => addReview(rev, i, true));
+  }
+
+  // 投稿処理
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const name = document.getElementById('nameInput').value.trim();
+    const comment = document.getElementById('commentInput').value.trim();
+    const rating = form.rating.value;
+
+    if (!name || !comment) {
+      alert('お名前と感想は必ず入力してください。');
+      return;
+    }
+    if (!rating) {
+      alert('評価を選んでください。');
+      return;
+    }
+
+    const newReview = {
+      name,
+      rating: Number(rating),
+      comment,
+      userId: currentUserId
+    };
+
+    const storedReviews = JSON.parse(localStorage.getItem('badmintonReviews') || '[]');
+    storedReviews.push(newReview);
+    localStorage.setItem('badmintonReviews', JSON.stringify(storedReviews));
+
+    form.reset();
+    loadReviews();
+  });
+
+  loadReviews();
+</script>
+
+</body>
+</html>
