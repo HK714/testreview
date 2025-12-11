@@ -29,7 +29,6 @@
       margin-bottom: 1.5rem;
       border-bottom: 1px solid #ddd;
       padding-bottom: 1rem;
-      position: relative;
     }
     .name {
       font-weight: bold;
@@ -95,22 +94,6 @@
     button:hover {
       background-color: #21618c;
     }
-    .delete-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: #e74c3c;
-      border: none;
-      color: white;
-      padding: 0.2rem 0.6rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: background-color 0.3s;
-    }
-    .delete-btn:hover {
-      background-color: #c0392b;
-    }
   </style>
 </head>
 <body>
@@ -121,108 +104,91 @@
 </header>
 
 <div class="review-container" id="review-container">
-
-  <form id="commentForm">
-    <h2>感想を書き込む</h2>
-    <input type="text" id="nameInput" placeholder="お名前" required />
-    <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
-
-    <div>
-      <label>評価（星1〜5）:</label>
-      <div class="rating" id="rating">
-        <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
-        <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
-        <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
-        <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
-        <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
-      </div>
-    </div>
-
-    <button type="submit">投稿する</button>
-  </form>
+  <!-- コメント一覧が自動で入る -->
 </div>
 
-<script>
-  const API_URL = "https://test-revi.onrender.com/api/reviews";
-  const clubName = "dance"; // ← ダンス部
-  const reviewContainer = document.getElementById("review-container");
-  const form = document.getElementById("commentForm");
+<form id="commentForm">
+  <h2>感想を書き込む</h2>
+  <input type="text" id="nameInput" placeholder="お名前" required />
+  <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
 
-  // UUID（ユーザー識別）
-  if (!localStorage.getItem("userId")) {
-    localStorage.setItem("userId", crypto.randomUUID());
-  }
-  const currentUserId = localStorage.getItem("userId");
+  <div>
+    <label>評価（星1〜5）:</label>
+    <div class="rating" id="rating">
+      <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
+      <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
+      <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
+      <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
+      <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
+    </div>
+  </div>
+
+  <button type="submit">投稿する</button>
+</form>
+
+<script>
+  // -------- ここを部活ごとに変更 --------
+  const API_BASE = "https://test-revi.onrender.com/api/reviews";
+  const clubKey = "dance";  // ← ダンス部のキー
+  // -------------------------------------
 
   function starsDisplay(num) {
-    return "★".repeat(num) + "☆".repeat(5 - num);
+    return '★'.repeat(num) + '☆'.repeat(5 - num);
   }
 
-  function createReviewElement(review) {
-    const div = document.createElement("div");
-    div.classList.add("review");
-
-    div.innerHTML = `
-      <div class="name">${review.name}</div>
-      <div class="stars">${starsDisplay(review.rating)}</div>
-      <div class="comment">${review.comment}</div>
-    `;
-
-    if (review.userId === currentUserId) {
-      const btn = document.createElement("button");
-      btn.classList.add("delete-btn");
-      btn.textContent = "削除";
-      btn.onclick = async () => {
-        if (confirm("このコメントを削除しますか？")) {
-          await fetch(`${API_URL}/${review._id}`, { method: "DELETE" });
-          loadReviews();
-        }
-      };
-      div.appendChild(btn);
-    }
-
-    return div;
-  }
-
+  // レビュー読み込み
   async function loadReviews() {
-    const res = await fetch(`${API_URL}?club=${clubName}`);
-    const reviews = await res.json();
+    const container = document.getElementById("review-container");
+    container.innerHTML = "";
 
-    document.querySelectorAll(".review").forEach(r => r.remove());
+    try {
+      const res = await fetch(`${API_BASE}/${clubKey}`);
+      if (!res.ok) throw new Error("読み込み失敗");
 
-    reviews.forEach(r => {
-      reviewContainer.insertBefore(createReviewElement(r), form);
-    });
+      const reviews = await res.json();
+
+      reviews.forEach(r => {
+        const div = document.createElement("div");
+        div.classList.add("review");
+        div.innerHTML = `
+          <div class="name">${r.name}</div>
+          <div class="stars">${starsDisplay(r.rating)}</div>
+          <div class="comment">${r.comment}</div>
+        `;
+        container.appendChild(div);
+      });
+    } catch (err) {
+      container.innerHTML = "<p>レビューの読み込みに失敗しました。</p>";
+    }
   }
 
-  form.addEventListener("submit", async e => {
+  // 投稿処理
+  document.getElementById("commentForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const name = document.getElementById("nameInput").value.trim();
     const comment = document.getElementById("commentInput").value.trim();
-    const rating = form.rating.value;
+    const rating = Number(document.querySelector("input[name='rating']:checked")?.value);
 
-    if (!rating) {
-      alert("評価を選んでください！");
+    if (!name || !comment || !rating) {
+      alert("全部入力してね！");
       return;
     }
 
-    const newReview = {
-      name,
-      rating: Number(rating),
-      comment,
-      userId: currentUserId,
-      club: clubName
-    };
+    try {
+      const res = await fetch(`${API_BASE}/${clubKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, comment, rating })
+      });
 
-    await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newReview)
-    });
+      if (!res.ok) throw new Error("投稿失敗");
 
-    form.reset();
-    loadReviews();
+      document.getElementById("commentForm").reset();
+      loadReviews();
+    } catch (err) {
+      alert("投稿に失敗しました。時間をおいて再度お試しください。");
+    }
   });
 
   loadReviews();
