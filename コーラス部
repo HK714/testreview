@@ -110,7 +110,7 @@
 </header>
 
 <div class="review-container" id="review-container">
-  <!-- レビュー一覧 -->
+  <!-- コメント一覧 -->
 </div>
 
 <form id="commentForm">
@@ -153,7 +153,7 @@
       const reviews = await res.json();
       reviews.forEach(r => {
         const div = document.createElement("div");
-        div.className = "review";
+        div.classList.add("review");
         div.innerHTML = `
           <div class="name">${r.name}</div>
           <div class="stars">${starsDisplay(r.rating)}</div>
