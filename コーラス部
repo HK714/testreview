@@ -135,7 +135,7 @@
 <script>
   // -------- 設定 --------
   const API_BASE = "https://test-revi.onrender.com/api/reviews";
-  const clubKey = "chorus";
+  const clubKey = "chorus"; // コーラス部
   // ----------------------
 
   function starsDisplay(num) {
@@ -153,7 +153,7 @@
       const reviews = await res.json();
       reviews.forEach(r => {
         const div = document.createElement("div");
-        div.classList.add("review");
+        div.className = "review";
         div.innerHTML = `
           <div class="name">${r.name}</div>
           <div class="stars">${starsDisplay(r.rating)}</div>
