@@ -65,25 +65,38 @@
       border-radius: 5px;
       resize: vertical;
     }
+
+    /* ★評価部分のCSS修正 */
     .rating {
       display: flex;
       gap: 0.3rem;
       font-size: 1.5rem;
       cursor: pointer;
       user-select: none;
+      flex-direction: row-reverse; /* 左から選べるように反転 */
     }
+
     .rating input {
       display: none;
     }
+
     .rating label {
       color: #ccc;
       transition: color 0.3s;
     }
-    .rating input:checked ~ label,
+
+    /* ホバー時に左側まで色がつく */
     .rating label:hover,
     .rating label:hover ~ label {
       color: #f39c12;
     }
+
+    /* 選択時に左側まで色がつく */
+    .rating input:checked ~ label,
+    .rating input:checked ~ label ~ label {
+      color: #f39c12;
+    }
+
     button {
       width: 120px;
       padding: 0.6rem;
@@ -116,28 +129,25 @@
 <form id="commentForm">
   <h2>感想を書き込む</h2>
   <input type="text" id="nameInput" placeholder="お名前" required />
-  <textarea id="commentInput" rows="4" placeholder="感想をどうぞ4" required></textarea>
+  <textarea id="commentInput" rows="4" placeholder="感想をどうぞ0" required></textarea>
 
   <div>
     <label>評価（星1〜5）:</label>
     <div class="rating">
-  <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
-  <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-  <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
-  <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-  <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
-</div>
-
+      <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+      <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+      <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+      <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+      <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+    </div>
   </div>
 
   <button type="submit">投稿する</button>
 </form>
 
 <script>
-  // -------- 設定 --------
   const API_BASE = "https://test-revi.onrender.com/api/reviews";
   const clubKey = "cooking";
-  // ----------------------
 
   function starsDisplay(num) {
     return '★'.repeat(num) + '☆'.repeat(5 - num);
