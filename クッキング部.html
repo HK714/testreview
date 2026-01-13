@@ -66,14 +66,14 @@
       resize: vertical;
     }
 
-    /* ★評価部分のCSS修正 */
+    /* ★評価部分のCSS */
     .rating {
       display: flex;
       gap: 0.3rem;
       font-size: 1.5rem;
       cursor: pointer;
       user-select: none;
-      flex-direction: row-reverse; /* 左から選べるように反転 */
+      /* 星の並びは左から右 */
     }
 
     .rating input {
@@ -85,15 +85,15 @@
       transition: color 0.3s;
     }
 
-    /* ホバー時に左側まで色がつく */
+    /* ホバー時：左側まで色をつける */
     .rating label:hover,
     .rating label:hover ~ label {
       color: #f39c12;
     }
 
-    /* 選択時に左側まで色がつく */
-    .rating input:checked ~ label,
-    .rating input:checked ~ label ~ label {
+    /* チェック時：左側まで色をつける */
+    .rating input:checked + label,
+    .rating input:checked + label ~ label {
       color: #f39c12;
     }
 
@@ -129,7 +129,7 @@
 <form id="commentForm">
   <h2>感想を書き込む</h2>
   <input type="text" id="nameInput" placeholder="お名前" required />
-  <textarea id="commentInput" rows="4" placeholder="感想をどうぞ0" required></textarea>
+  <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
 
   <div>
     <label>評価（星1〜5）:</label>
