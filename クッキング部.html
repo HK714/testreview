@@ -65,8 +65,6 @@
       border-radius: 5px;
       resize: vertical;
     }
-
-    /* ★評価部分のCSS */
     .rating {
       display: flex;
       gap: 0.3rem;
@@ -74,38 +72,18 @@
       cursor: pointer;
       user-select: none;
     }
-
     .rating input {
       display: none;
     }
-
     .rating label {
       color: #ccc;
       transition: color 0.3s;
     }
-
-    /* ホバー時：左側まで色をつける */
+    .rating input:checked ~ label,
     .rating label:hover,
     .rating label:hover ~ label {
       color: #f39c12;
     }
-
-    /* チェック時：左側まで色をつける */
-    /* それぞれの星に対して左側の星も色がつくように指定 */
-    #star5:checked ~ label[for="star4"],
-    #star5:checked ~ label[for="star3"],
-    #star5:checked ~ label[for="star2"],
-    #star5:checked ~ label[for="star1"],
-    #star4:checked ~ label[for="star3"],
-    #star4:checked ~ label[for="star2"],
-    #star4:checked ~ label[for="star1"],
-    #star3:checked ~ label[for="star2"],
-    #star3:checked ~ label[for="star1"],
-    #star2:checked ~ label[for="star1"],
-    input:checked + label {
-      color: #f39c12;
-    }
-
     button {
       width: 120px;
       padding: 0.6rem;
@@ -124,3 +102,99 @@
 </head>
 <body>
 
+<header>
+  <h1>クッキング部の感想</h1>
+  <a href="文化部紹介画面.html" style="color: white; font-size: 0.9rem;">
+    ← 文化部紹介ページに戻る
+  </a>
+</header>
+
+<div class="review-container" id="review-container">
+  <!-- コメント一覧 -->
+</div>
+
+<form id="commentForm">
+  <h2>感想を書き込む</h2>
+  <input type="text" id="nameInput" placeholder="お名前" required />
+  <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
+
+  <div>
+    <label>評価（星1〜5）:</label>
+    <div class="rating">
+      <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+      <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+      <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+      <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+      <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+    </div>
+  </div>
+
+  <button type="submit">投稿する</button>
+</form>
+
+<script>
+  // -------- 設定 --------
+  const API_BASE = "https://test-revi.onrender.com/api/reviews";
+  const clubKey = "cooking"; // ← クッキング部
+  // ----------------------
+
+  function starsDisplay(num) {
+    return '★'.repeat(num) + '☆'.repeat(5 - num);
+  }
+
+  async function loadReviews() {
+    const container = document.getElementById("review-container");
+    container.innerHTML = "";
+
+    try {
+      const res = await fetch(`${API_BASE}/${clubKey}`);
+      if (!res.ok) throw new Error();
+
+      const reviews = await res.json();
+      reviews.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "review";
+        div.innerHTML = `
+          <div class="name">${r.name}</div>
+          <div class="stars">${starsDisplay(r.rating)}</div>
+          <div class="comment">${r.comment}</div>
+        `;
+        container.appendChild(div);
+      });
+    } catch {
+      container.innerHTML = "<p>レビューの読み込みに失敗しました。</p>";
+    }
+  }
+
+  document.getElementById("commentForm").addEventListener("submit", async e => {
+    e.preventDefault();
+
+    const name = nameInput.value.trim();
+    const comment = commentInput.value.trim();
+    const rating = Number(document.querySelector("input[name='rating']:checked")?.value);
+
+    if (!name || !comment || !rating) {
+      alert("すべて入力してください。");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/${clubKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, comment, rating })
+      });
+      if (!res.ok) throw new Error();
+
+      e.target.reset();
+      loadReviews();
+    } catch {
+      alert("投稿に失敗しました。");
+    }
+  });
+
+  loadReviews();
+</script>
+
+</body>
+</html>
