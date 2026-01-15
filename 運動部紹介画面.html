@@ -5,15 +5,12 @@
   <title>運動部紹介</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* 全体 */
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #e0f7fa, #e1bee7);
       margin: 0;
       padding: 0;
     }
-
-    /* ヘッダー */
     header {
       background: linear-gradient(to right, #4facfe, #00f2fe);
       color: white;
@@ -37,16 +34,12 @@
     header a:hover {
       opacity: 0.8;
     }
-
-    /* コンテナ */
     .container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
       padding: 2rem;
     }
-
-    /* カード */
     .card {
       background: white;
       border-radius: 15px;
@@ -61,8 +54,6 @@
       transform: translateY(-10px);
       box-shadow: 0 12px 24px rgba(0,0,0,0.2);
     }
-
-    /* 画像 */
     .card img {
       width: 100%;
       height: 160px;
@@ -72,8 +63,6 @@
     .card:hover img {
       transform: scale(1.05);
     }
-
-    /* カード内容 */
     .card-content {
       padding: 1rem 1.2rem;
     }
@@ -88,7 +77,6 @@
       color: #555;
       line-height: 1.4;
     }
-
     a.card-link {
       text-decoration: none;
       color: inherit;
@@ -103,7 +91,7 @@
 </header>
 
 <div class="container">
-  <!-- 例: サッカー部 -->
+  <!-- サッカー部 -->
   <a href="サッカー部.html" class="card-link">
     <div class="card">
       <img src="https://source.unsplash.com/300x160/?soccer" alt="サッカー部">
@@ -114,7 +102,7 @@
     </div>
   </a>
 
-  <!-- 他の部活も同様にカードで追加 -->
+  <!-- 男子バスケットボール部 -->
   <a href="バスケットボール部.html" class="card-link">
     <div class="card">
       <img src="https://source.unsplash.com/300x160/?basketball" alt="男子バスケットボール部">
@@ -125,6 +113,7 @@
     </div>
   </a>
 
+  <!-- 女子バスケットボール部 -->
   <a href="女子バスケットボール部.html" class="card-link">
     <div class="card">
       <img src="https://source.unsplash.com/300x160/?basketball,women" alt="女子バスケットボール部">
@@ -135,7 +124,104 @@
     </div>
   </a>
 
-  <!-- 他の部活も同様に画像URLをUnsplashで置き換え -->
+  <!-- バレーボール部 -->
+  <a href="バレーボール部.html" class="card-link">
+    <div class="card">
+      <img src="https://source.unsplash.com/300x160/?volleyball" alt="バレーボール部">
+      <div class="card-content">
+        <div class="card-title">バレーボール部</div>
+        <p>声を出して仲間と連携をとり、試合に向けて頑張っています。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- バドミントン部 -->
+  <a href="バトミントン部.html" class="card-link">
+    <div class="card">
+      <img src="https://source.unsplash.com/300x160/?badminton" alt="バドミントン部">
+      <div class="card-content">
+        <div class="card-title">バドミントン部</div>
+        <p>素早いフットワークと反射神経が鍛えられるスポーツです。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- テニス部 -->
+  <a href="テニス部.html" class="card-link">
+    <div class="card">
+      <img src="https://source.unsplash.com/300x160/?tennis" alt="テニス部">
+      <div class="card-content">
+        <div class="card-title">テニス部</div>
+        <p>ラリーや試合を通して、楽しく技術を高め合っています。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- ダンス部 -->
+  <a href="ダンス部.html" class="card-link">
+    <div class="card">
+      <img src="https://source.unsplash.com/300x160/?dance" alt="ダンス部">
+      <div class="card-content">
+        <div class="card-title">ダンス部</div>
+        <p>表現力とリズム感を磨き、文化祭やイベントでパフォーマンスしています。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 陸上部 -->
+  <a href="陸上部.html" class="card-link">
+    <div class="card">
+      <img src="https://source.unsplash.com/300x160/?running,track" alt="陸上部">
+      <div class="card-content">
+        <div class="card-title">陸上部</div>
+        <p>持久力と瞬発力を鍛えてます。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 卓球部 -->
+  <a href="卓球部.html" class="card-link">
+    <div class="card">
+      <img src="https://source.unsplash.com/300x160/?tabletennis" alt="卓球部">
+      <div class="card-content">
+        <div class="card-title">卓球部</div>
+        <p>俊敏性が問われる世界で一番かっこいいスポーツ。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 水泳部 -->
+  <a href="水泳部.html" class="card-link">
+    <div class="card">
+      <img src="https://source.unsplash.com/300x160/?swimming" alt="水泳部">
+      <div class="card-content">
+        <div class="card-title">水泳部</div>
+        <p>泳いで肺を強くしてます。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- 野球部 -->
+  <a href="野球部.html" class="card-link">
+    <div class="card">
+      <img src="https://source.unsplash.com/300x160/?baseball" alt="野球部">
+      <div class="card-content">
+        <div class="card-title">野球部</div>
+        <p>声を出して仲間と連携をとり、試合に向けて頑張っています。</p>
+      </div>
+    </div>
+  </a>
+
+  <!-- ソフトボール部 -->
+  <a href="ソフトボール部.html" class="card-link">
+    <div class="card">
+      <img src="https://source.unsplash.com/300x160/?softball" alt="ソフトボール部">
+      <div class="card-content">
+        <div class="card-title">ソフトボール部</div>
+        <p>声を出して仲間と連携をとり、試合に向けて頑張っています。</p>
+      </div>
+    </div>
+  </a>
 </div>
 
 </body>
