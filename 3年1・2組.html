@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>3年1・2組</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css"> 
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdfdfd;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #3d1abc;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1rem;
+    }
+    .card-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>3年1・2組</h1>
+    <a href="科内選択画面.html" style="color: white; font-size: 0.9rem;">← 科内選択画面に戻る</a>
+  </header>
+
+  <div class="container">
+    
+    <!-- 電子回路 -->
+    <a href="3年1・2組/電子回路.html" style="text-decoration: none; color: inherit;">
+      <div class="card">
+        <img src="https://source.unsplash.com/300x150/?electronics" alt="電子回路">
+        <div class="card-content">
+          <div class="card-title">電子回路</div>
+          <p>電子回路を学びます。</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- 原動機 -->
+    <a href="3年1・2組/原動機.html" style="text-decoration: none; color: inherit;">
+      <div class="card">
+        <img src="https://source.unsplash.com/300x150/?engine" alt="原動機">
+        <div class="card-content">
+          <div class="card-title">原動機</div>
+          <p>原動機を学びます。</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- 通信技術 -->
+    <a href="3年1・2組/通信技術.html" style="text-decoration: none; color: inherit;">
+      <div class="card">
+        <img src="https://source.unsplash.com/300x150/?communication" alt="通信技術">
+        <div class="card-content">
+          <div class="card-title">通信技術</div>
+          <p>通信技術を学びます。</p>
+        </div>
+      </div>
+    </a>
+
+    <!-- 数学C -->
+    <a href="3年1・2組/数学C.html" style="text-decoration: none; color: inherit;">
+      <div class="card">
+        <img src="https://source.unsplash.com/300x150/?math" alt="数学C">
+        <div class="card-content">
+          <div class="card-title">数学C</div>
+          <p>数学Cを学びます。</p>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</body>
+</html>
