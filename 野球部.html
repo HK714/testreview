@@ -29,7 +29,6 @@
       margin-bottom: 1.5rem;
       border-bottom: 1px solid #ddd;
       padding-bottom: 1rem;
-      position: relative;
     }
     .name {
       font-weight: bold;
@@ -47,7 +46,12 @@
       text-decoration: none;
     }
     form {
-      margin-top: 2rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
@@ -88,7 +92,6 @@
       font-size: 1rem;
       cursor: pointer;
       align-self: flex-start;
-      transition: background-color 0.3s;
     }
     button:hover { background-color: #21618c; }
   </style>
@@ -97,11 +100,13 @@
 
 <header>
   <h1>野球部の感想</h1>
-  <a href="運動部紹介画面.html" style="color: white; font-size: 0.9rem;">← 運動部紹介ページに戻る</a>
+  <a href="運動部紹介画面.html" style="color:white;font-size:0.9rem;">
+    ← 運動部紹介ページに戻る
+  </a>
 </header>
 
 <div class="review-container" id="review-container">
-  <!-- コメントがここに入る -->
+  <!-- レビュー表示 -->
 </div>
 
 <form id="commentForm">
@@ -111,12 +116,12 @@
 
   <div>
     <label>評価（星1〜5）:</label>
-    <div class="rating" id="rating">
-      <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
-      <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
-      <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
-      <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
-      <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
+    <div class="rating">
+      <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+      <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+      <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+      <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+      <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
     </div>
   </div>
 
@@ -125,10 +130,10 @@
 
 <script>
   const API_BASE = "https://test-revi.onrender.com/api/reviews";
-  const clubKey = "baseball"; // ← 野球部APIに保存
+  const clubKey = "baseball";
 
   function starsDisplay(num) {
-    return '★'.repeat(num) + '☆'.repeat(5 - num);
+    return "★".repeat(num) + "☆".repeat(5 - num);
   }
 
   async function loadReviews() {
@@ -137,12 +142,12 @@
 
     try {
       const res = await fetch(`${API_BASE}/${clubKey}`);
-      if (!res.ok) throw new Error("取得失敗");
+      if (!res.ok) throw new Error();
 
       const reviews = await res.json();
       reviews.forEach(r => {
         const div = document.createElement("div");
-        div.classList.add("review");
+        div.className = "review";
         div.innerHTML = `
           <div class="name">${r.name}</div>
           <div class="stars">${starsDisplay(r.rating)}</div>
@@ -150,21 +155,20 @@
         `;
         container.appendChild(div);
       });
-    } catch (err) {
-      console.error(err);
+    } catch {
       container.innerHTML = "<p>レビューの読み込みに失敗しました。</p>";
     }
   }
 
-  document.getElementById("commentForm").addEventListener("submit", async function(e) {
+  document.getElementById("commentForm").addEventListener("submit", async e => {
     e.preventDefault();
 
-    const name = document.getElementById("nameInput").value.trim();
-    const comment = document.getElementById("commentInput").value.trim();
+    const name = nameInput.value.trim();
+    const comment = commentInput.value.trim();
     const rating = Number(document.querySelector("input[name='rating']:checked")?.value);
 
     if (!name || !comment || !rating) {
-      alert("お名前・感想・評価をすべて入力してください。");
+      alert("すべて入力してください。");
       return;
     }
 
@@ -174,14 +178,11 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, comment, rating })
       });
+      if (!res.ok) throw new Error();
 
-      if (!res.ok) throw new Error("投稿失敗");
-
-      document.getElementById("commentForm").reset();
+      e.target.reset();
       loadReviews();
-
-    } catch (err) {
-      console.error(err);
+    } catch {
       alert("投稿に失敗しました。");
     }
   });
