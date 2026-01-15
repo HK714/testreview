@@ -7,21 +7,19 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+      background: #f7f7f7;
       margin: 0;
       padding: 0;
     }
     header {
-      background: linear-gradient(to right, #4facfe, #00f2fe);
+      background: #1abc9c;
       color: white;
-      padding: 2rem;
+      padding: 1.5rem;
       text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     header h1 {
       margin: 0;
-      font-size: 2rem;
-      letter-spacing: 1px;
+      font-size: 1.8rem;
     }
     header a {
       display: inline-block;
@@ -29,42 +27,34 @@
       color: white;
       font-size: 0.9rem;
       text-decoration: underline;
-      transition: opacity 0.3s;
-    }
-    header a:hover {
-      opacity: 0.8;
     }
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      padding: 1.5rem;
     }
     .card {
       background: white;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 1.5rem 1.2rem;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
     .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
     }
     .card-title {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: bold;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.5rem;
       color: #333;
     }
     .card-content p {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #555;
-      line-height: 1.5;
+      line-height: 1.4;
     }
     a.card-link {
       text-decoration: none;
@@ -81,122 +71,110 @@
 
 <div class="container">
 
-  <!-- サッカー部 -->
   <a href="サッカー部.html" class="card-link">
     <div class="card">
       <div class="card-title">サッカー部</div>
       <div class="card-content">
-        <p>仲間とのパスワークやフォーメーションを意識して練習しています。試合では全力で走り抜けます。</p>
+        <p>仲間とのパスや戦術を意識し、試合で全力を発揮できるよう練習しています。</p>
       </div>
     </div>
   </a>
 
-  <!-- 男子バスケットボール部 -->
   <a href="バスケットボール部.html" class="card-link">
     <div class="card">
       <div class="card-title">男子バスケットボール部</div>
       <div class="card-content">
-        <p>シュート練習やディフェンス、チーム戦術を学びながら、スピード感のある試合を目指しています。</p>
+        <p>シュートやディフェンスの技術を磨き、チームで試合に挑みます。</p>
       </div>
     </div>
   </a>
 
-  <!-- 女子バスケットボール部 -->
   <a href="女子バスケットボール部.html" class="card-link">
     <div class="card">
       <div class="card-title">女子バスケットボール部</div>
       <div class="card-content">
-        <p>コミュニケーションを大切にし、パスやポジショニングを意識して練習しています。</p>
+        <p>パスやポジションの連携を意識して、チーム力を高めています。</p>
       </div>
     </div>
   </a>
 
-  <!-- バレーボール部 -->
   <a href="バレーボール部.html" class="card-link">
     <div class="card">
       <div class="card-title">バレーボール部</div>
       <div class="card-content">
-        <p>サーブやレシーブの技術を磨きつつ、チームでの連携を重視して練習しています。</p>
+        <p>サーブやレシーブを中心に練習し、チームの連携を大事にしています。</p>
       </div>
     </div>
   </a>
 
-  <!-- バドミントン部 -->
   <a href="バトミントン部.html" class="card-link">
     <div class="card">
       <div class="card-title">バドミントン部</div>
       <div class="card-content">
-        <p>フットワークと反射神経を鍛え、ラリーの精度を上げることを目標に日々練習しています。</p>
+        <p>フットワークと反応力を鍛え、ラリーの正確さを高めています。</p>
       </div>
     </div>
   </a>
 
-  <!-- テニス部 -->
   <a href="テニス部.html" class="card-link">
     <div class="card">
       <div class="card-title">テニス部</div>
       <div class="card-content">
-        <p>ラリーやサーブ、ボレーの技術向上を中心に、試合で勝つための練習をしています。</p>
+        <p>ラリーやサーブの練習を通して、試合で勝つ力をつけています。</p>
       </div>
     </div>
   </a>
 
-  <!-- ダンス部 -->
   <a href="ダンス部.html" class="card-link">
     <div class="card">
       <div class="card-title">ダンス部</div>
       <div class="card-content">
-        <p>リズム感や表現力を磨き、発表会や文化祭で観客に楽しんでもらえるパフォーマンスを目指します。</p>
+        <p>リズム感や表現力を磨き、イベントで魅力的なパフォーマンスを披露しています。</p>
       </div>
     </div>
   </a>
 
-  <!-- 陸上部 -->
   <a href="陸上部.html" class="card-link">
     <div class="card">
       <div class="card-title">陸上部</div>
       <div class="card-content">
-        <p>短距離・長距離・跳躍など種目ごとに基礎体力とスピード、持久力を鍛えています。</p>
+        <p>短距離・長距離・跳躍など種目に合わせて体力と技術を高めています。</p>
       </div>
     </div>
   </a>
 
-  <!-- 卓球部 -->
   <a href="卓球部.html" class="card-link">
     <div class="card">
       <div class="card-title">卓球部</div>
       <div class="card-content">
-        <p>卓球の速いボールに対応する反射神経と戦略を鍛え、試合で勝てる技術を磨いています。</p>
+        <p>反応速度と戦略を鍛え、試合で勝つための技術を磨いています。</p>
       </div>
     </div>
   </a>
 
-  <!-- 水泳部 -->
   <a href="水泳部.html" class="card-link">
     <div class="card">
       <div class="card-title">水泳部</div>
       <div class="card-content">
-        <p>泳法の基礎からスタートし、持久力と心肺機能を高めながら競技力を向上させています。</p>
+        <p>泳法の練習を重ね、持久力や心肺機能を高めています。</p>
       </div>
     </div>
   </a>
 
-  <!-- 野球部 -->
   <a href="野球部.html" class="card-link">
     <div class="card">
       <div class="card-title">野球部</div>
       <div class="card-content">
-        <p>守備・打撃・走塁の基本を徹底し、チームで勝利を目指して練習に励んでいます。</p>
+        <p>打撃・守備・走塁の技術を磨き、チームで勝利を目指します。</p>
       </div>
     </div>
   </a>
 
-  <!-- ソフトボール部 -->
   <a href="ソフトボール部.html" class="card-link">
     <div class="card">
       <div class="card-title">ソフトボール部</div>
       <div class="card-content">
-        <p>バッティングや守備の技術を磨き、試合での連携を大切にして練習しています。</p>
+        <p>バッティングや守備の技術を高め、チームで試合に挑んでいます。</p>
       </div>
     </div>
   </a>
