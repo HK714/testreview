@@ -1,178 +1,119 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>運動部紹介</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-
-  <style>
-    * { box-sizing: border-box; margin:0; padding:0; }
-    body {
-      font-family: 'Noto Sans JP', sans-serif;
-      background: #f0f4f8;
-      color: #333;
-    }
-
-    header {
-      background: #4facfe;
-      background: linear-gradient(to right, #00f2fe, #4facfe);
-      color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-      position: relative;
-    }
-    header a {
-      position: absolute;
-      left: 1rem;
-      top: 2rem;
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.8rem;
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    .card {
-      position: relative;
-      border-radius: 15px;
-      overflow: hidden;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.15);
-    }
-
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .overlay {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: rgba(0,0,0,0.45);
-      color: white;
-      padding: 1rem;
-      transition: background 0.3s;
-    }
-    .card:hover .overlay {
-      background: rgba(0,0,0,0.6);
-    }
-
-    .overlay .title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-    }
-    .overlay .desc {
-      font-size: 0.9rem;
-      line-height: 1.3;
-    }
-
-    @media(max-width:600px){
-      .container {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-      }
-      .card img { height: 160px; }
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <a href="部活選択画面.html">← トップへ戻る</a>
-  <h1>運動部紹介</h1>
-</header>
-
-<div class="container">
-
-  <a href="サッカー部.html" class="card">
-    <img src="https://source.unsplash.com/400x250/?soccer" alt="サッカー部">
-    <div class="overlay">
-      <div class="title">サッカー部</div>
-      <div class="desc">チームワークを大切にしながら、日々グラウンドで汗を流しています。</div>
+<a href="サッカー部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?soccer" alt="サッカー部">
+    <div class="card-content">
+      <div class="card-title">サッカー部</div>
+      <p>チームワークを大切にしながら、日々グラウンドで汗を流しています。</p>
     </div>
-  </a>
+  </div>
+</a>
 
-  <a href="バスケットボール部.html" class="card">
-    <img src="https://source.unsplash.com/400x250/?basketball" alt="男子バスケットボール部">
-    <div class="overlay">
-      <div class="title">男子バスケットボール部</div>
-      <div class="desc">スピード感あふれる試合を目指し、基礎からしっかり練習しています。</div>
+<a href="バスケットボール部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?basketball" alt="男子バスケットボール部">
+    <div class="card-content">
+      <div class="card-title">男子バスケットボール部</div>
+      <p>スピード感あふれる試合を目指し、基礎からしっかり練習しています。</p>
     </div>
-  </a>
+  </div>
+</a>
 
-  <a href="女子バスケットボール部.html" class="card">
-    <img src="https://source.unsplash.com/400x250/?women-basketball" alt="女子バスケットボール部">
-    <div class="overlay">
-      <div class="title">女子バスケットボール部</div>
-      <div class="desc">声を出して仲間と連携をとり、試合に向けて頑張っています。</div>
+<a href="女子バスケットボール部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?women-basketball" alt="女子バスケットボール部">
+    <div class="card-content">
+      <div class="card-title">女子バスケットボール部</div>
+      <p>声を出して仲間と連携をとり、試合に向けて頑張っています。</p>
     </div>
-  </a>
+  </div>
+</a>
 
-  <a href="バレーボール部.html" class="card">
-    <img src="https://source.unsplash.com/400x250/?volleyball" alt="バレーボール部">
-    <div class="overlay">
-      <div class="title">バレーボール部</div>
-      <div class="desc">声を出して仲間と連携をとり、試合に向けて頑張っています。</div>
+<a href="バレーボール部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?volleyball" alt="バレーボール部">
+    <div class="card-content">
+      <div class="card-title">バレーボール部</div>
+      <p>声を出して仲間と連携をとり、試合に向けて頑張っています。</p>
     </div>
-  </a>
+  </div>
+</a>
 
-  <a href="陸上部.html" class="card">
-    <img src="https://source.unsplash.com/400x250/?track" alt="陸上部">
-    <div class="overlay">
-      <div class="title">陸上部</div>
-      <div class="desc">持久力と瞬発力を鍛えています。</div>
+<a href="陸上部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?track" alt="陸上部">
+    <div class="card-content">
+      <div class="card-title">陸上部</div>
+      <p>持久力と瞬発力を鍛えています。</p>
     </div>
-  </a>
+  </div>
+</a>
 
-  <a href="水泳部.html" class="card">
-    <img src="https://source.unsplash.com/400x250/?swimming" alt="水泳部">
-    <div class="overlay">
-      <div class="title">水泳部</div>
-      <div class="desc">泳いで肺を強くしています。</div>
+<a href="水泳部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?swimming" alt="水泳部">
+    <div class="card-content">
+      <div class="card-title">水泳部</div>
+      <p>泳いで肺を強くしています。</p>
     </div>
-  </a>
+  </div>
+</a>
 
-  <a href="野球部.html" class="card">
-    <img src="https://source.unsplash.com/400x250/?baseball" alt="野球部">
-    <div class="overlay">
-      <div class="title">野球部</div>
-      <div class="desc">声を出して仲間と連携をとり、試合に向けて頑張っています。</div>
+<a href="野球部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?baseball" alt="野球部">
+    <div class="card-content">
+      <div class="card-title">野球部</div>
+      <p>声を出して仲間と連携をとり、試合に向けて頑張っています。</p>
     </div>
-  </a>
+  </div>
+</a>
 
-  <a href="ソフトボール部.html" class="card">
-    <img src="https://source.unsplash.com/400x250/?softball" alt="ソフトボール部">
-    <div class="overlay">
-      <div class="title">ソフトボール部</div>
-      <div class="desc">声を出して仲間と連携をとり、試合に向けて頑張っています。</div>
+<a href="ソフトボール部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?softball" alt="ソフトボール部">
+    <div class="card-content">
+      <div class="card-title">ソフトボール部</div>
+      <p>声を出して仲間と連携をとり、試合に向けて頑張っています。</p>
     </div>
-  </a>
+  </div>
+</a>
 
-</div>
+<a href="卓球部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?table-tennis" alt="卓球部">
+    <div class="card-content">
+      <div class="card-title">卓球部</div>
+      <p>俊敏性が問われる世界で一番かっこいいスポーツ</p>
+    </div>
+  </div>
+</a>
 
-</body>
-</html>
+<a href="ダンス部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?dance" alt="ダンス部">
+    <div class="card-content">
+      <div class="card-title">ダンス部</div>
+      <p>表現力とリズム感を磨き、文化祭やイベントでパフォーマンスしています。</p>
+    </div>
+  </div>
+</a>
+
+<a href="テニス部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?tennis" alt="テニス部">
+    <div class="card-content">
+      <div class="card-title">テニス部</div>
+      <p>ラリーや試合を通して、楽しく技術を高め合っています。</p>
+    </div>
+  </div>
+</a>
+
+<a href="バドミントン部.html" class="card-link">
+  <div class="card">
+    <img src="https://source.unsplash.com/300x150/?badminton" alt="バドミントン部">
+    <div class="card-content">
+      <div class="card-title">バドミントン部</div>
+      <p>素早いフットワークと反射神経が鍛えられるスポーツです。</p>
+    </div>
+  </div>
+</a>
