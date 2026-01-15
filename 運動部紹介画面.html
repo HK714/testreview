@@ -4,92 +4,101 @@
   <meta charset="UTF-8">
   <title>運動部紹介</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
     body {
-      font-family: 'Roboto', sans-serif;
-      background: #f0f2f5;
+      font-family: 'Montserrat', sans-serif;
+      background: #eaeaea;
       color: #333;
     }
 
     header {
-      background: #0d6efd;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
       color: white;
       text-align: center;
-      padding: 2rem;
+      padding: 2.5rem 1rem;
       position: relative;
     }
     header a {
       position: absolute;
       left: 1rem;
-      top: 1.8rem;
+      top: 2.1rem;
       color: white;
       text-decoration: none;
+      font-weight: 500;
       font-size: 0.9rem;
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
+      letter-spacing: 1px;
     }
 
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
       max-width: 1200px;
-      margin: 0 auto;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
 
     .card {
       background: white;
-      border-radius: 12px;
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      position: relative;
+      transition: transform 0.4s, box-shadow 0.4s;
       cursor: pointer;
     }
     .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transform: translateY(-12px);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.18);
     }
 
     .card img {
       width: 100%;
       height: 180px;
       object-fit: cover;
+      border-bottom: 4px solid transparent;
+      transition: border 0.4s;
+    }
+    .card:hover img {
+      border-bottom: 4px solid #2575fc;
     }
 
     .card-content {
-      padding: 1rem 1.2rem;
+      padding: 1.2rem 1rem;
+      text-align: center;
     }
 
     .card-title {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #0d6efd;
+      margin-bottom: 0.6rem;
+      color: #2575fc;
     }
 
     .card p {
       font-size: 0.95rem;
+      line-height: 1.5;
       color: #555;
-      line-height: 1.4;
     }
 
     @media(max-width:600px){
       .container {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 1rem;
-        padding: 1rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
       }
-      .card img { height: 140px; }
+      .card img { height: 160px; }
     }
+
   </style>
 </head>
 <body>
@@ -110,7 +119,7 @@
   </a>
 
   <a href="バスケットボール部.html" class="card">
-    <img src="https://source.unsplash.com/400x250/?basketball" alt="バスケットボール部">
+    <img src="https://source.unsplash.com/400x250/?basketball" alt="男子バスケットボール部">
     <div class="card-content">
       <div class="card-title">男子バスケットボール部</div>
       <p>スピード感あふれる試合を目指し、基礎からしっかり練習しています。</p>
