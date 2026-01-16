@@ -7,12 +7,9 @@
   <style>
     html, body {
       height: 100%;
-      overflow: hidden;
+      overflow: auto;
       margin: 0;
       padding: 0;
-    }
-
-    body {
       font-family: "Inter", "Segoe UI", sans-serif;
       background: #f5f7fa;
       color: #333;
@@ -103,7 +100,7 @@
       justify-content: center;
       align-items: center;
       gap: 30px;
-      margin-top: 20px;
+      margin: 20px 0;
     }
 
     .card {
@@ -167,10 +164,10 @@
     }
     .account-edit button:hover { background: #3d5063; }
 
-    /* コメント欄スタイル */
+    /* コメント欄 */
     .comment-section {
       width: 500px;
-      margin: 20px auto 40px auto;
+      margin: 20px auto;
     }
     #commentInput {
       width: 100%;
@@ -202,7 +199,7 @@
       <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v1.2h19.2v-1.2c0-3.2-6.4-4.8-9.6-4.8z"/>
     </svg>
   </div>
-  
+
   <!-- アカウントメニュー -->
   <div class="account-menu" id="accountMenu">
     <div class="username-display" id="menuUsername"></div>
@@ -213,26 +210,21 @@
   <!-- アカウント編集 -->
   <div class="account-edit" id="accountEdit">
     <h3>アカウント詳細</h3>
-
     <label>ユーザー名</label>
     <input type="text" id="editUsername" />
-
     <label>メールアドレス</label>
     <input type="email" id="editEmail" />
-
     <label>現在のパスワード</label>
     <input type="password" id="oldPassword" />
-
     <label>新しいパスワード</label>
     <input type="password" id="editPassword" />
-
     <button id="saveAccountBtn">保存</button>
   </div>
 
-  <!-- ヒーローセクション -->
+  <!-- ヘッダー -->
   <header class="hero">
     <div class="text-box">
-      <h1>コブコミ - クッキング部</h1>
+      <h1>コブコミ</h1>
     </div>
   </header>
 
@@ -242,7 +234,6 @@
       <h3>部活選択</h3>
       <p>あなたの所属する部活動を選択できます。</p>
     </a>
-    
     <a class="card" href="科内選択画面.html">
       <h3>科内選択</h3>
       <p>科ごとのコミュニティへ移動します。</p>
@@ -262,31 +253,27 @@
   </footer>
 
   <script>
-    // ログイン確認
+    // ログインチェック
     const currentEmail = localStorage.getItem("currentUser");
     if (!currentEmail) {
       alert("ログインしてください");
       location.href = "index.html";
     }
 
-    // アカウント情報取得
     let user = JSON.parse(localStorage.getItem("user_" + currentEmail));
-    const username = user.username;
+    const menuUsername = document.getElementById("menuUsername");
+    menuUsername.textContent = user.username;
 
-    // アカウントメニュー操作
+    // アカウントボタン操作
     const accountBtn = document.getElementById("accountBtn");
     const accountMenu = document.getElementById("accountMenu");
     const accountDetailBtn = document.getElementById("accountDetailBtn");
     const accountEdit = document.getElementById("accountEdit");
     const saveAccountBtn = document.getElementById("saveAccountBtn");
-    const menuUsername = document.getElementById("menuUsername");
-
-    menuUsername.textContent = username;
 
     accountBtn.addEventListener("click", () => {
       accountMenu.style.display = accountMenu.style.display === "block" ? "none" : "block";
     });
-
     document.addEventListener("click", (e) => {
       if (!accountBtn.contains(e.target) && !accountMenu.contains(e.target) && !accountEdit.contains(e.target)) {
         accountMenu.style.display = "none";
@@ -339,7 +326,6 @@
 
       localStorage.setItem("user_" + newEmail, JSON.stringify(user));
       localStorage.setItem("currentUser", newEmail);
-
       menuUsername.textContent = newUsername;
 
       alert("アカウント情報を更新しました");
@@ -352,11 +338,13 @@
       location.href = "index.html";
     }
 
-    // コメント機能
+    // -----------------------------
+    // コメント欄（統一名）
+    // -----------------------------
+    const unifiedName = "コブコミ太郎";
     const commentInput = document.getElementById("commentInput");
     const postBtn = document.getElementById("postCommentBtn");
     const commentsDiv = document.getElementById("comments");
-
     const storageKey = "cookingClubComments";
 
     function loadComments() {
@@ -365,7 +353,7 @@
       comments.forEach(c => {
         const div = document.createElement("div");
         div.className = "comment";
-        div.innerHTML = `<span class="comment-username">${c.username}:</span> <span class="comment-text">${c.text}</span>`;
+        div.innerHTML = `<span class="comment-username">${unifiedName}:</span> <span class="comment-text">${c.text}</span>`;
         commentsDiv.appendChild(div);
       });
     }
@@ -377,9 +365,8 @@
       if (!text) return;
 
       const comments = JSON.parse(localStorage.getItem(storageKey)) || [];
-      comments.push({ username, text });
+      comments.push({ text });
       localStorage.setItem(storageKey, JSON.stringify(comments));
-
       commentInput.value = "";
       loadComments();
     });
