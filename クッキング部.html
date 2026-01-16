@@ -2,203 +2,387 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>クッキング部の感想</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>クッキング部</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f4f4;
+    html, body {
+      height: 100%;
+      overflow: hidden;
       margin: 0;
       padding: 0;
     }
-    header {
-      background: #2980b9;
-      color: white;
-      padding: 1.5rem;
-      text-align: center;
-    }
-    .review-container {
-      max-width: 800px;
-      margin: 2rem auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    }
-    .review {
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 1rem;
-    }
-    .name {
-      font-weight: bold;
-    }
-    .stars {
-      color: #f39c12;
-      margin-top: 0.3rem;
-    }
-    .comment {
-      margin-top: 0.5rem;
-      white-space: pre-wrap;
-    }
-    a {
-      color: #2980b9;
-      text-decoration: none;
-    }
-    form {
-      max-width: 800px;
-      margin: 2rem auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background: #f5f7fa;
+      color: #333;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-    }
-    input[type="text"],
-    textarea {
-      width: 100%;
-      padding: 0.5rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      resize: vertical;
     }
 
-    /* ===== 星評価 ===== */
-    .rating {
-      display: flex;
-      gap: 0.3rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-      user-select: none;
-    }
-    .rating input {
-      display: none;
-    }
-    .rating label {
-      color: #ccc;
-      transition: color 0.3s;
-    }
-    .rating input:checked ~ label,
-    .rating label:hover,
-    .rating label:hover ~ label {
-      color: #f39c12;
-    }
-
-    button {
-      width: 120px;
-      padding: 0.6rem;
-      background-color: #2980b9;
+    .account-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 42px;
+      height: 42px;
+      background: #444;
       color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      align-self: flex-start;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      transition: 0.25s ease;
+      z-index: 1000;
     }
-    button:hover {
-      background-color: #21618c;
+    .account-btn:hover { background: #555; transform: translateY(-2px); }
+    .account-btn svg { width: 22px; height: 22px; fill: white; }
+
+    .account-menu {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      width: 180px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      padding: 15px;
+      display: none;
+      z-index: 1001;
+    }
+    .account-menu .username-display {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .account-menu button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 8px;
+      border: none;
+      border-radius: 8px;
+      background: #2c3e50;
+      color: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: 0.25s;
+    }
+    .account-menu button:hover { background: #3d5063; }
+
+    header.hero {
+      height: 45vh;
+      background: url("新座総合技術高等学校校舎.jpg") center/cover no-repeat;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    header.hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    header.hero .text-box {
+      position: relative;
+      color: white;
+      padding: 1.4rem 2rem;
+      backdrop-filter: blur(7px);
+      background: rgba(255,255,255,0.2);
+      border-radius: 16px;
+    }
+    header.hero h1 { margin: 0; font-size: 2.5rem; font-weight: 600; }
+
+    .menu-area {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .card {
+      width: 240px;
+      background: #fff;
+      padding: 1.4rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      transition: .25s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    .card h3 { margin: 0 0 10px 0; font-size: 1.3rem; color: #2c7be5; font-weight: 600; }
+
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    .account-edit {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 1002;
+    }
+    .account-edit h3 { margin-top: 0; margin-bottom: 12px; text-align: center; }
+    .account-edit label { font-size: 0.85rem; }
+    .account-edit input {
+      width: 100%;
+      padding: 6px 8px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+    }
+    .account-edit button {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 8px;
+      background: #2c3e50;
+      color: white;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+    .account-edit button:hover { background: #3d5063; }
+
+    /* コメント欄スタイル */
+    .comment-section {
+      width: 500px;
+      margin: 20px auto 40px auto;
+    }
+    #commentInput {
+      width: 100%;
+      height: 80px;
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+    #comments .comment {
+      border-bottom: 1px solid #ddd;
+      padding: 6px 0;
+    }
+    .comment-username {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    .comment-text {
+      display: inline;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>クッキング部の感想</h1>
-  <a href="文化部紹介画面.html" style="color: white; font-size: 0.9rem;">
-    ← 文化部紹介ページに戻る
-  </a>
-</header>
-
-<div class="review-container" id="review-container">
-  <!-- コメント一覧 -->
-</div>
-
-<form id="commentForm">
-  <h2>感想を書き込む</h2>
-  <input type="text" id="nameInput" placeholder="お名前" required />
-  <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
-
-  <div>
-    <label>評価（星1〜5）:</label>
-    <div class="rating">
-      <!-- 左から 1 → 5 -->
-      <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
-      <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-      <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
-      <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-      <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
-    </div>
+  <!-- アカウントボタン -->
+  <div class="account-btn" id="accountBtn">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v1.2h19.2v-1.2c0-3.2-6.4-4.8-9.6-4.8z"/>
+    </svg>
+  </div>
+  
+  <!-- アカウントメニュー -->
+  <div class="account-menu" id="accountMenu">
+    <div class="username-display" id="menuUsername"></div>
+    <button id="accountDetailBtn">アカウント詳細</button>
+    <button onclick="logout()">ログアウト</button>
   </div>
 
-  <button type="submit">投稿する</button>
-</form>
+  <!-- アカウント編集 -->
+  <div class="account-edit" id="accountEdit">
+    <h3>アカウント詳細</h3>
 
-<script>
-  // -------- 設定 --------
-  const API_BASE = "https://test-revi.onrender.com/api/reviews";
-  const clubKey = "cooking"; // ← クッキング部
-  // ----------------------
+    <label>ユーザー名</label>
+    <input type="text" id="editUsername" />
 
-  function starsDisplay(num) {
-    return '★'.repeat(num) + '☆'.repeat(5 - num);
-  }
+    <label>メールアドレス</label>
+    <input type="email" id="editEmail" />
 
-  async function loadReviews() {
-    const container = document.getElementById("review-container");
-    container.innerHTML = "";
+    <label>現在のパスワード</label>
+    <input type="password" id="oldPassword" />
 
-    try {
-      const res = await fetch(`${API_BASE}/${clubKey}`);
-      if (!res.ok) throw new Error();
+    <label>新しいパスワード</label>
+    <input type="password" id="editPassword" />
 
-      const reviews = await res.json();
-      reviews.forEach(r => {
+    <button id="saveAccountBtn">保存</button>
+  </div>
+
+  <!-- ヒーローセクション -->
+  <header class="hero">
+    <div class="text-box">
+      <h1>コブコミ - クッキング部</h1>
+    </div>
+  </header>
+
+  <!-- メニューカード -->
+  <div class="menu-area">
+    <a class="card" href="部活選択画面.html">
+      <h3>部活選択</h3>
+      <p>あなたの所属する部活動を選択できます。</p>
+    </a>
+    
+    <a class="card" href="科内選択画面.html">
+      <h3>科内選択</h3>
+      <p>科ごとのコミュニティへ移動します。</p>
+    </a>
+  </div>
+
+  <!-- コメント欄 -->
+  <div class="comment-section">
+    <h2>コメント</h2>
+    <div id="comments"></div>
+    <textarea id="commentInput" placeholder="コメントを入力してください"></textarea>
+    <button id="postCommentBtn">投稿</button>
+  </div>
+
+  <footer>
+    © 2025 新総アプリ. All rights reserved.
+  </footer>
+
+  <script>
+    // ログイン確認
+    const currentEmail = localStorage.getItem("currentUser");
+    if (!currentEmail) {
+      alert("ログインしてください");
+      location.href = "index.html";
+    }
+
+    // アカウント情報取得
+    let user = JSON.parse(localStorage.getItem("user_" + currentEmail));
+    const username = user.username;
+
+    // アカウントメニュー操作
+    const accountBtn = document.getElementById("accountBtn");
+    const accountMenu = document.getElementById("accountMenu");
+    const accountDetailBtn = document.getElementById("accountDetailBtn");
+    const accountEdit = document.getElementById("accountEdit");
+    const saveAccountBtn = document.getElementById("saveAccountBtn");
+    const menuUsername = document.getElementById("menuUsername");
+
+    menuUsername.textContent = username;
+
+    accountBtn.addEventListener("click", () => {
+      accountMenu.style.display = accountMenu.style.display === "block" ? "none" : "block";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!accountBtn.contains(e.target) && !accountMenu.contains(e.target) && !accountEdit.contains(e.target)) {
+        accountMenu.style.display = "none";
+        accountEdit.style.display = "none";
+      }
+    });
+
+    accountDetailBtn.addEventListener("click", () => {
+      document.getElementById("editUsername").value = user.username;
+      document.getElementById("editEmail").value = user.email;
+      document.getElementById("oldPassword").value = "";
+      document.getElementById("editPassword").value = "";
+      accountEdit.style.display = "block";
+      accountMenu.style.display = "none";
+    });
+
+    saveAccountBtn.addEventListener("click", () => {
+      const newUsername = document.getElementById("editUsername").value;
+      const newEmail = document.getElementById("editEmail").value;
+      const newPassword = document.getElementById("editPassword").value;
+      const oldPassword = document.getElementById("oldPassword").value;
+
+      if (oldPassword !== user.password) {
+        alert("現在のパスワードが正しくありません");
+        return;
+      }
+
+      if (!newEmail.endsWith("@st.spec.ed.jp")) {
+        alert("メールアドレスは @st.spec.ed.jp のみ利用できます");
+        return;
+      }
+
+      if (!/^[0-9]*$/.test(newPassword)) {
+        alert("数字のみを使用してください");
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        alert("6文字以上にしてください");
+        return;
+      }
+
+      if (newEmail !== user.email) {
+        localStorage.removeItem("user_" + user.email);
+      }
+
+      user.username = newUsername;
+      user.email = newEmail;
+      user.password = newPassword;
+
+      localStorage.setItem("user_" + newEmail, JSON.stringify(user));
+      localStorage.setItem("currentUser", newEmail);
+
+      menuUsername.textContent = newUsername;
+
+      alert("アカウント情報を更新しました");
+      accountEdit.style.display = "none";
+    });
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      alert("ログアウトしました");
+      location.href = "index.html";
+    }
+
+    // コメント機能
+    const commentInput = document.getElementById("commentInput");
+    const postBtn = document.getElementById("postCommentBtn");
+    const commentsDiv = document.getElementById("comments");
+
+    const storageKey = "cookingClubComments";
+
+    function loadComments() {
+      const comments = JSON.parse(localStorage.getItem(storageKey)) || [];
+      commentsDiv.innerHTML = "";
+      comments.forEach(c => {
         const div = document.createElement("div");
-        div.className = "review";
-        div.innerHTML = `
-          <div class="name">${r.name}</div>
-          <div class="stars">${starsDisplay(r.rating)}</div>
-          <div class="comment">${r.comment}</div>
-        `;
-        container.appendChild(div);
+        div.className = "comment";
+        div.innerHTML = `<span class="comment-username">${c.username}:</span> <span class="comment-text">${c.text}</span>`;
+        commentsDiv.appendChild(div);
       });
-    } catch {
-      container.innerHTML = "<p>レビューの読み込みに失敗しました。</p>";
-    }
-  }
-
-  document.getElementById("commentForm").addEventListener("submit", async e => {
-    e.preventDefault();
-
-    const name = nameInput.value.trim();
-    const comment = commentInput.value.trim();
-    const rating = Number(document.querySelector("input[name='rating']:checked")?.value);
-
-    if (!name || !comment || !rating) {
-      alert("すべて入力してください。");
-      return;
     }
 
-    try {
-      const res = await fetch(`${API_BASE}/${clubKey}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, comment, rating })
-      });
-      if (!res.ok) throw new Error();
+    loadComments();
 
-      e.target.reset();
-      loadReviews();
-    } catch {
-      alert("投稿に失敗しました。");
-    }
-  });
+    postBtn.addEventListener("click", () => {
+      const text = commentInput.value.trim();
+      if (!text) return;
 
-  loadReviews();
-</script>
+      const comments = JSON.parse(localStorage.getItem(storageKey)) || [];
+      comments.push({ username, text });
+      localStorage.setItem(storageKey, JSON.stringify(comments));
 
+      commentInput.value = "";
+      loadComments();
+    });
+  </script>
 </body>
 </html>
