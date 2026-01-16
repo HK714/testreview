@@ -66,6 +66,7 @@
       resize: vertical;
     }
 
+    /* 星評価 */
     .rating {
       display: flex;
       gap: 0.3rem;
@@ -111,7 +112,9 @@
   </a>
 </header>
 
-<div class="review-container" id="review-container"></div>
+<div class="review-container" id="review-container">
+  <!-- コメント一覧 -->
+</div>
 
 <form id="commentForm">
   <h2>感想を書き込む</h2>
@@ -135,7 +138,7 @@
 <script>
   // -------- 設定 --------
   const API_BASE = "https://test-revi.onrender.com/api/reviews";
-  const clubKey = "bungaku"; // 文学国語
+  const clubKey = "bungaku"; // ← 文学国語
   // ----------------------
 
   function starsDisplay(num) {
