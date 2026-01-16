@@ -1,1 +1,193 @@
-<!DOCTYPE html> <html lang="ja"> <head> <meta charset="UTF-8"> <title>科内選択n選択</title> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <style> body { font-family: 'Segoe UI', sans-serif; background: #fdfdfd; margin: 0; padding: 0; } header { background: #1abc9c; color: white; padding: 2rem; text-align: center; } h1 { margin: 0; } .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; padding: 2rem; } .card { background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden; transition: 0.3s; } .card:hover { transform: translateY(-5px); } .card img { width: 100%; height: 150px; object-fit: cover; } .card-content { padding: 1rem; } .card-title { font-size: 1.2rem; margin-bottom: 0.5rem; } a.card-link { text-decoration: none; color: inherit; } </style> </head> <body> <header> <h1>科内選択 n選択</h1> <a href="科内選択画面.html" style="color:white;font-size:0.9rem;">← トップへ戻る</a> </header> <div class="container"> <a href="文学国語.html" class="card-link"> <div class="card"> <img src="images/bungaku.jpg" alt="文学国語"> <div class="card-content"> <div class="card-title">文学国語</div> <p>文学作品を通して、読解力と表現力を深めます。</p> </div> </div> </a> <a href="数学Ⅱ.html" class="card-link"> <div class="card"> <img src="images/math.jpg" alt="数学Ⅱ"> <div class="card-content"> <div class="card-title">数学Ⅱ</div> <p>関数や図形を中心に数学的思考力を養います。</p> </div> </div> </a> <a href="物理.html" class="card-link"> <div class="card"> <img src="images/physics.jpg" alt="物理"> <div class="card-content"> <div class="card-title">物理</div> <p>自然現象の法則を理解し、実験を通して理論を深めます。</p> </div> </div> </a> <a href="電子機械.html" class="card-link"> <div class="card"> <img src="images/electromech.jpg" alt="電子機械"> <div class="card-content"> <div class="card-title">電子機械</div> <p>電気・電子回路と機械要素を組み合わせた技術を学びます。</p> </div> </div> </a> <a href="生物.html" class="card-link"> <div class="card"> <img src="images/biology.jpg" alt="生物"> <div class="card-content"> <div class="card-title">生物</div> <p>生物の構造・機能・進化を学び、観察実験を行います。</p> </div> </div> </a> <a href="化学.html" class="card-link"> <div class="card"> <img src="images/chemistry.jpg" alt="化学"> <div class="card-content"> <div class="card-title">化学</div> <p>物質の性質や反応を理解し、実験で科学的思考を養います。</p> </div> </div> </a> <a href="英語コミュニケーションⅡ.html" class="card-link"> <div class="card"> <img src="images/english2.jpg" alt="英語コミュニケーションⅡ"> <div class="card-content"> <div class="card-title">英語コミュニケーションⅡ</div> <p>英語での会話力と理解力を高め、実践的に学びます。</p> </div> </div> </a> <a href="英語コミュニケーションⅢ.html" class="card-link"> <div class="card"> <img src="images/english3.jpg" alt="英語コミュニケーションⅢ"> <div class="card-content"> <div class="card-title">英語コミュニケーションⅢ</div> <p>さらに高度な英語表現やコミュニケーション能力を養います。</p> </div> </div> </a> <a href="ファッションの応用技術.html" class="card-link"> <div class="card"> <img src="images/fashion.jpg" alt="ファッションの応用技術"> <div class="card-content"> <div class="card-title">ファッションの応用技術</div> <p>衣服デザインや素材選択など、実践的なファッション技術を学びます。</p> </div> </div> </a> <a href="デザイナーのためのデッサン.html" class="card-link"> <div class="card"> <img src="images/drawing.jpg" alt="デザイナーのためのデッサン"> <div class="card-content"> <div class="card-title">デザイナーのためのデッサン</div> <p>デザイン表現力を高めるための描画技法と観察力を学びます。</p> </div> </div> </a> <a href="ソフトウェア活用.html" class="card-link"> <div class="card"> <img src="images/software.jpg" alt="ソフトウェア活用"> <div class="card-content"> <div class="card-title">ソフトウェア活用</div> <p>PCソフトウェアを活用した実務スキルや効率的な作業方法を学びます。</p> </div> </div> </a> <a href="ウェブプログラミング.html" class="card-link"> <div class="card"> <img src="images/webprog.jpg" alt="ウェブプログラミング"> <div class="card-content"> <div class="card-title">ウェブプログラミング</div> <p>HTML・CSS・JavaScriptを用いたウェブサイト制作を学びます。</p> </div> </div> </a> </div> </body> </html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>科内選択n選択</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdfdfd;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #1abc9c;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 { margin: 0; }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    a.card-link {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>科内選択 n選択</h1>
+  <a href="科内選択画面.html" style="color:white;font-size:0.9rem;">← トップへ戻る</a>
+</header>
+
+<div class="container">
+
+  <a href="文学国語.html" class="card-link">
+    <div class="card">
+      <img src="images/bungaku.jpg" alt="文学国語">
+      <div class="card-content">
+        <div class="card-title">文学国語</div>
+        <p>文学作品を通して、読解力と表現力を深めます。</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="数学Ⅱ.html" class="card-link">
+    <div class="card">
+      <img src="images/math.jpg" alt="数学Ⅱ">
+      <div class="card-content">
+        <div class="card-title">数学Ⅱ</div>
+        <p>関数や図形を中心に数学的思考力を養います。</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="物理.html" class="card-link">
+    <div class="card">
+      <img src="images/physics.jpg" alt="物理">
+      <div class="card-content">
+        <div class="card-title">物理</div>
+        <p>自然現象の法則を理解し、実験を通して理論を深めます。</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="電子機械.html" class="card-link">
+    <div class="card">
+      <img src="images/electromech.jpg" alt="電子機械">
+      <div class="card-content">
+        <div class="card-title">電子機械</div>
+        <p>電気・電子回路と機械要素を組み合わせた技術を学びます。</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="生物.html" class="card-link">
+    <div class="card">
+      <img src="images/biology.jpg" alt="生物">
+      <div class="card-content">
+        <div class="card-title">生物</div>
+        <p>生物の構造・機能・進化を学び、観察実験を行います。</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="化学.html" class="card-link">
+    <div class="card">
+      <img src="images/chemistry.jpg" alt="化学">
+      <div class="card-content">
+        <div class="card-title">化学</div>
+        <p>物質の性質や反応を理解し、実験で科学的思考を養います。</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="英語コミュニケーションⅡ.html" class="card-link">
+    <div class="card">
+      <img src="images/english2.jpg" alt="英語コミュニケーションⅡ">
+      <div class="card-content">
+        <div class="card-title">英語コミュニケーションⅡ</div>
+        <p>英語での会話力と理解力を高め、実践的に学びます。</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="英語コミュニケーションⅢ.html" class="card-link">
+    <div class="card">
+      <img src="images/english3.jpg" alt="英語コミュニケーションⅢ">
+      <div class="card-content">
+        <div class="card-title">英語コミュニケーションⅢ</div>
+        <p>さらに高度な英語表現やコミュニケーション能力を養います。</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="ファッションの応用技術.html" class="card-link">
+    <div class="card">
+      <img src="images/fashion.jpg" alt="ファッションの応用技術">
+      <div class="card-content">
+        <div class="card-title">ファッションの応用技術</div>
+        <p>衣服デザインや素材選択など、実践的なファッション技術を学びます。</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="デザイナーのためのデッサン.html" class="card-link">
+    <div class="card">
+      <img src="images/drawing.jpg" alt="デザイナーのためのデッサン">
+      <div class="card-content">
+        <div class="card-title">デザイナーのためのデッサン</div>
+        <p>デザイン表現力を高めるための描画技法と観察力を学びます。</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="ソフトウェア活用.html" class="card-link">
+    <div class="card">
+      <img src="images/software.jpg" alt="ソフトウェア活用">
+      <div class="card-content">
+        <div class="card-title">ソフトウェア活用</div>
+        <p>PCソフトウェアを活用した実務スキルや効率的な作業方法を学びます。</p>
+      </div>
+    </div>
+  </a>
+
+  <a href="ウェブプログラミング.html" class="card-link">
+    <div class="card">
+      <img src="images/webprog.jpg" alt="ウェブプログラミング">
+      <div class="card-content">
+        <div class="card-title">ウェブプログラミング</div>
+        <p>HTML・CSS・JavaScriptを用いたウェブサイト制作を学びます。</p>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+</body>
+</html>
