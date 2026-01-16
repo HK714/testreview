@@ -7,55 +7,51 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f7f7f7;
+      background: #fdfdfd;
       margin: 0;
       padding: 0;
     }
     header {
       background: #1abc9c;
       color: white;
-      padding: 1.5rem;
+      padding: 2rem;
       text-align: center;
     }
-    header h1 {
-      margin: 0;
-      font-size: 1.8rem;
-    }
-    header a {
-      display: inline-block;
-      margin-top: 0.5rem;
-      color: white;
-      font-size: 0.9rem;
-      text-decoration: underline;
-    }
+    h1 { margin: 0; }
+
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      padding: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
     }
+
     .card {
       background: white;
-      border-radius: 8px;
-      padding: 1rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: 0.3s;
     }
     .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      transform: translateY(-5px);
     }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
     .card-title {
       font-size: 1.2rem;
-      font-weight: bold;
       margin-bottom: 0.5rem;
-      color: #333;
     }
-    .card-content p {
-      font-size: 0.9rem;
-      color: #555;
-      line-height: 1.4;
-    }
+
     a.card-link {
       text-decoration: none;
       color: inherit;
@@ -66,118 +62,32 @@
 
 <header>
   <h1>科内選択 n選択</h1>
-  <a href="科内選択画面.html">← トップへ戻る</a>
+  <a href="科内選択画面.html" style="color:white;font-size:0.9rem;">← トップへ戻る</a>
 </header>
 
 <div class="container">
 
-  <a href="https://hk714.github.io/testreview/n%E9%81%B8%E6%8A%9E/%E6%96%87%E5%AD%A6%E5%9B%BD%E8%AA%9E.html" class="card-link">
+  <a href="文学国語.html" class="card-link">
     <div class="card">
-      <div class="card-title">文学国語</div>
+      <img src="images/bungaku.jpg" alt="文学国語">
       <div class="card-content">
-        <p>文学作品を通して、読解力や表現力を深めます。</p>
+        <div class="card-title">文学国語</div>
+        <p>文学作品を通して、読解力と表現力を深めます。</p>
       </div>
     </div>
   </a>
 
   <a href="数学Ⅱ.html" class="card-link">
     <div class="card">
-      <div class="card-title">数学Ⅱ</div>
+      <img src="images/math.jpg" alt="数学Ⅱ">
       <div class="card-content">
-        <p>関数や図形など、数学的思考力を高めます。</p>
+        <div class="card-title">数学Ⅱ</div>
+        <p>関数や図形を中心に数学的思考力を養います。</p>
       </div>
     </div>
   </a>
 
-  <a href="物理.html" class="card-link">
-    <div class="card">
-      <div class="card-title">物理</div>
-      <div class="card-content">
-        <p>力やエネルギーの仕組みを学びます。</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="化学.html" class="card-link">
-    <div class="card">
-      <div class="card-title">化学</div>
-      <div class="card-content">
-        <p>物質の性質や反応について理解を深めます。</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="生物.html" class="card-link">
-    <div class="card">
-      <div class="card-title">生物</div>
-      <div class="card-content">
-        <p>生命の仕組みや自然との関わりを学びます。</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="英語コミュニケーションⅢ.html" class="card-link">
-    <div class="card">
-      <div class="card-title">英語コミュニケーションⅢ</div>
-      <div class="card-content">
-        <p>実践的な英語力を身につけます。</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="電子機械.html" class="card-link">
-    <div class="card">
-      <div class="card-title">電子機械</div>
-      <div class="card-content">
-        <p>機械と電子技術の基礎を学びます。</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="ウェブプログラミング.html" class="card-link">
-    <div class="card">
-      <div class="card-title">ウェブプログラミング</div>
-      <div class="card-content">
-        <p>Webサイト制作やプログラミングを学びます。</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="デザイナーのためのデッサン.html" class="card-link">
-    <div class="card">
-      <div class="card-title">デザイナーのためのデッサン</div>
-      <div class="card-content">
-        <p>観察力と表現力を高めます。</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="ソフトウェア活用.html" class="card-link">
-    <div class="card">
-      <div class="card-title">ソフトウェア活用</div>
-      <div class="card-content">
-        <p>実務に役立つソフト操作を学びます。</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="ファッション応用技術Ⅱ.html" class="card-link">
-    <div class="card">
-      <div class="card-title">ファッション応用技術Ⅱ</div>
-      <div class="card-content">
-        <p>服飾の応用技術を学びます。</p>
-      </div>
-    </div>
-  </a>
-
-  <a href="テキスタイルデザイン.html" class="card-link">
-    <div class="card">
-      <div class="card-title">テキスタイルデザイン</div>
-      <div class="card-content">
-        <p>布や素材のデザインを学びます。</p>
-      </div>
-    </div>
-  </a>
+  <!-- 他の科目も同じ形で追加 -->
 
 </div>
 
