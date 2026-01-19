@@ -30,28 +30,51 @@
       border-bottom: 1px solid #ddd;
       padding-bottom: 1rem;
     }
-    .name { font-weight: bold; }
-    .stars { color: #f39c12; margin-top: 0.3rem; }
-    .comment { margin-top: 0.5rem; white-space: pre-wrap; }
+    .name {
+      font-weight: bold;
+    }
+    .stars {
+      color: #f39c12;
+      margin-top: 0.3rem;
+    }
+    .comment {
+      margin-top: 0.5rem;
+      white-space: pre-wrap;
+    }
     form {
-      margin-top: 2rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
     }
-    input, textarea {
+    input[type="text"],
+    textarea {
+      width: 100%;
       padding: 0.5rem;
       font-size: 1rem;
       border: 1px solid #ccc;
       border-radius: 5px;
+      resize: vertical;
     }
     .rating {
       display: flex;
       gap: 0.3rem;
       font-size: 1.5rem;
+      cursor: pointer;
+      user-select: none;
     }
-    .rating input { display: none; }
-    .rating label { color: #ccc; cursor: pointer; }
+    .rating input {
+      display: none;
+    }
+    .rating label {
+      color: #ccc;
+      transition: color 0.3s;
+    }
     .rating input:checked ~ label,
     .rating label:hover,
     .rating label:hover ~ label {
@@ -60,11 +83,16 @@
     button {
       width: 120px;
       padding: 0.6rem;
-      background: #2980b9;
+      background-color: #2980b9;
       color: white;
       border: none;
       border-radius: 5px;
+      font-size: 1rem;
       cursor: pointer;
+      align-self: flex-start;
+    }
+    button:hover {
+      background-color: #21618c;
     }
   </style>
 </head>
@@ -72,78 +100,99 @@
 
 <header>
   <h1>数学Ⅲの感想</h1>
-  <a href="../科内選択s選択.html" style="color:white;font-size:0.9rem;">← 戻る</a>
+  <a href="../科内選択s選択.html" style="color:white;font-size:0.9rem;">
+    ← 戻る
+  </a>
 </header>
 
-<div class="review-container">
-  <div id="review-container"></div>
-
-  <form id="commentForm">
-    <h2>感想を書き込む</h2>
-    <input id="nameInput" placeholder="お名前" required />
-    <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
-
-    <div class="rating">
-      <input type="radio" id="s1" name="rating" value="1"><label for="s1">★</label>
-      <input type="radio" id="s2" name="rating" value="2"><label for="s2">★</label>
-      <input type="radio" id="s3" name="rating" value="3"><label for="s3">★</label>
-      <input type="radio" id="s4" name="rating" value="4"><label for="s4">★</label>
-      <input type="radio" id="s5" name="rating" value="5"><label for="s5">★</label>
-    </div>
-
-    <button>投稿する</button>
-  </form>
+<div class="review-container" id="review-container">
+  <!-- コメント一覧 -->
 </div>
 
+<form id="commentForm">
+  <h2>感想を書き込む</h2>
+  <input type="text" id="nameInput" placeholder="お名前" required />
+  <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
+
+  <div>
+    <label>評価（星1〜5）:</label>
+    <div class="rating">
+      <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+      <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+      <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+      <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+      <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+    </div>
+  </div>
+
+  <button type="submit">投稿する</button>
+</form>
+
 <script>
-const API_BASE = "https://test-revi.onrender.com/api/reviews";
-const clubKey = "math3"; // ← 数学Ⅲ用キー
+  // -------- 設定 --------
+  const API_BASE = "https://test-revi.onrender.com/api/reviews";
+  const clubKey = "math3"; // ← 数学Ⅲ
+  // ----------------------
 
-function stars(n){
-  return "★".repeat(n) + "☆".repeat(5 - n);
-}
+  function starsDisplay(num) {
+    return "★".repeat(num) + "☆".repeat(5 - num);
+  }
 
-async function loadReviews(){
-  const c = document.getElementById("review-container");
-  c.innerHTML = "";
-  const res = await fetch(`${API_BASE}/${clubKey}`);
-  const data = await res.json();
-  data.forEach(r => {
-    c.innerHTML += `
-      <div class="review">
-        <div class="name">${r.name}</div>
-        <div class="stars">${stars(r.rating)}</div>
-        <div class="comment">${r.comment}</div>
-      </div>
-    `;
+  async function loadReviews() {
+    const container = document.getElementById("review-container");
+    container.innerHTML = "";
+
+    try {
+      const res = await fetch(`${API_BASE}/${clubKey}`);
+      if (!res.ok) throw new Error();
+
+      const reviews = await res.json();
+      reviews.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "review";
+        div.innerHTML = `
+          <div class="name">${r.name}</div>
+          <div class="stars">${starsDisplay(r.rating)}</div>
+          <div class="comment">${r.comment}</div>
+        `;
+        container.appendChild(div);
+      });
+    } catch {
+      container.innerHTML = "<p>レビューの読み込みに失敗しました。</p>";
+    }
+  }
+
+  document.getElementById("commentForm").addEventListener("submit", async e => {
+    e.preventDefault();
+
+    const name = nameInput.value.trim();
+    const comment = commentInput.value.trim();
+    const rating = Number(
+      document.querySelector("input[name='rating']:checked")?.value
+    );
+
+    if (!name || !comment || !rating) {
+      alert("すべて入力してください。");
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/${clubKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, comment, rating })
+      });
+      if (!res.ok) throw new Error();
+
+      e.target.reset();
+      loadReviews();
+    } catch {
+      alert("投稿に失敗しました。");
+    }
   });
-}
 
-document.getElementById("commentForm").onsubmit = async e => {
-  e.preventDefault();
-  const rating = document.querySelector("input[name=rating]:checked")?.value;
-  if(!rating) return alert("評価を選んでください");
-
-  await fetch(`${API_BASE}/${clubKey}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: nameInput.value,
-      comment: commentInput.value,
-      rating: Number(rating)
-    })
-  });
-
-  e.target.reset();
   loadReviews();
-};
-
-loadReviews();
 </script>
-</body>
-</html>
-
 
 </body>
 </html>
-
