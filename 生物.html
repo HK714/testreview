@@ -23,13 +23,12 @@
       background: white;
       padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
     .review {
       margin-bottom: 1.5rem;
       border-bottom: 1px solid #ddd;
       padding-bottom: 1rem;
-      position: relative;
     }
     .name {
       font-weight: bold;
@@ -47,7 +46,12 @@
       text-decoration: none;
     }
     form {
-      margin-top: 2rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
@@ -90,27 +94,9 @@
       font-size: 1rem;
       cursor: pointer;
       align-self: flex-start;
-      transition: background-color 0.3s;
     }
     button:hover {
       background-color: #21618c;
-    }
-    /* 削除ボタン */
-    .delete-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: #e74c3c;
-      border: none;
-      color: white;
-      padding: 0.2rem 0.6rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: background-color 0.3s;
-    }
-    .delete-btn:hover {
-      background-color: #c0392b;
     }
   </style>
 </head>
@@ -118,157 +104,93 @@
 
 <header>
   <h1>生物の感想</h1>
-  <a href="../科内選択g選択.html" style="color: white; font-size: 0.9rem;">← 科内選択g選択に戻る</a>
+  <a href="科内選択n選択.html" style="color:white; font-size:0.9rem;">
+    ← 科内選択n選択に戻る
+  </a>
 </header>
 
 <div class="review-container" id="review-container">
-  <!-- ここにコメント一覧が動的に入る -->
-  <!-- フォームは後ろに置きます -->
-  
-  <!-- コメント投稿フォーム -->
-  <form id="commentForm">
-    <h2>感想を書き込む</h2>
-    <input type="text" id="nameInput" placeholder="お名前" required />
-    <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
-
-    <div>
-      <label>評価（星1〜5）:</label>
-      <div class="rating" id="rating">
-        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars">★</label>
-        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">★</label>
-        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">★</label>
-        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">★</label>
-        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">★</label>
-      </div>
-    </div>
-
-    <button type="submit">投稿する</button>
-  </form>
+  <!-- コメント一覧 -->
 </div>
 
+<form id="commentForm">
+  <h2>感想を書き込む</h2>
+  <input type="text" id="nameInput" placeholder="お名前" required />
+  <textarea id="commentInput" rows="4" placeholder="感想をどうぞ" required></textarea>
+
+  <div>
+    <label>評価（星1〜5）:</label>
+    <div class="rating">
+      <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+      <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+      <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+      <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+      <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+    </div>
+  </div>
+
+  <button type="submit">投稿する</button>
+</form>
+
 <script>
-  // ユーザーID生成（UUID）してlocalStorageに保存
-  if (!localStorage.getItem('userId')) {
-    localStorage.setItem('userId', crypto.randomUUID());
-  }
-  const currentUserId = localStorage.getItem('userId');
+  const API_BASE = "https://test-revi.onrender.com/api/reviews";
+  const clubKey = "biology"; // ← 生物用キー
 
-  const form = document.getElementById('commentForm');
-  const reviewContainer = document.getElementById('review-container');
-
-  // サンプルコメント（削除不可なのでuserIdは特別に設定）
-  const sampleReviews = [
-    {
-      name: "2年生・ユウト",
-      rating: 5,
-      comment: "仲間との連携プレーが楽しい！もっと上手くなりたいです。",
-      userId: "sample-1"
-    },
-    {
-      name: "1年生・ミナト",
-      rating: 4,
-      comment: "先輩が優しく教えてくれるので安心して参加できました！",
-      userId: "sample-2"
-    },
-  ];
-
-  // 星表示用関数
   function starsDisplay(num) {
     return '★'.repeat(num) + '☆'.repeat(5 - num);
   }
 
-  // レビューを画面に追加する関数
-  function addReview(review, index, isLocal) {
-    const newReview = document.createElement('div');
-    newReview.classList.add('review');
+  async function loadReviews() {
+    const container = document.getElementById("review-container");
+    container.innerHTML = "";
 
-    const nameDiv = document.createElement('div');
-    nameDiv.classList.add('name');
-    nameDiv.textContent = review.name;
+    try {
+      const res = await fetch(`${API_BASE}/${clubKey}`);
+      if (!res.ok) throw new Error();
 
-    const starsDiv = document.createElement('div');
-    starsDiv.classList.add('stars');
-    starsDiv.textContent = starsDisplay(review.rating);
-
-    const commentDiv = document.createElement('div');
-    commentDiv.classList.add('comment');
-    commentDiv.textContent = review.comment;
-
-    newReview.appendChild(nameDiv);
-    newReview.appendChild(starsDiv);
-    newReview.appendChild(commentDiv);
-
-    // ローカルストレージのレビューなら削除ボタンをつける
-    // サンプルは削除不可なので付けない
-    if (isLocal && review.userId === currentUserId) {
-      const deleteBtn = document.createElement('button');
-      deleteBtn.classList.add('delete-btn');
-      deleteBtn.textContent = '削除';
-      deleteBtn.onclick = () => {
-        if (confirm('このコメントを削除しますか？')) {
-          let storedReviews = JSON.parse(localStorage.getItem('soccerReviews') || '[]');
-          storedReviews.splice(index, 1);
-          localStorage.setItem('soccerReviews', JSON.stringify(storedReviews));
-          loadReviews();
-        }
-      };
-      newReview.appendChild(deleteBtn);
+      const reviews = await res.json();
+      reviews.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "review";
+        div.innerHTML = `
+          <div class="name">${r.name}</div>
+          <div class="stars">${starsDisplay(r.rating)}</div>
+          <div class="comment">${r.comment}</div>
+        `;
+        container.appendChild(div);
+      });
+    } catch {
+      container.innerHTML = "<p>レビューの読み込みに失敗しました。</p>";
     }
-
-    reviewContainer.insertBefore(newReview, form);
   }
 
-  // ローカルストレージのレビューを読み込む
-  function loadReviews() {
-    // 既存のレビューを全削除（フォームは残す）
-    const reviewsOnPage = reviewContainer.querySelectorAll('.review');
-    reviewsOnPage.forEach(r => r.remove());
-
-    // サンプルコメント表示
-    sampleReviews.forEach((rev, i) => {
-      addReview(rev, i, false);
-    });
-
-    // ローカルストレージから保存コメント取得
-    const storedReviews = JSON.parse(localStorage.getItem('soccerReviews') || '[]');
-    storedReviews.forEach((rev, i) => {
-      addReview(rev, i, true);
-    });
-  }
-
-  form.addEventListener('submit', e => {
+  document.getElementById("commentForm").addEventListener("submit", async e => {
     e.preventDefault();
 
-    const name = document.getElementById('nameInput').value.trim();
-    const comment = document.getElementById('commentInput').value.trim();
-    const rating = form.rating.value;
+    const name = document.getElementById("nameInput").value.trim();
+    const comment = document.getElementById("commentInput").value.trim();
+    const rating = Number(document.querySelector("input[name='rating']:checked")?.value);
 
-    if (!name || !comment) {
-      alert('お名前と感想は必ず入力してください。');
-      return;
-    }
-    if (!rating) {
-      alert('評価を選んでください。');
+    if (!name || !comment || !rating) {
+      alert("すべて入力してください。");
       return;
     }
 
-    const newReview = {
-      name,
-      rating: Number(rating),
-      comment,
-      userId: currentUserId
-    };
+    try {
+      const res = await fetch(`${API_BASE}/${clubKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, comment, rating })
+      });
+      if (!res.ok) throw new Error();
 
-    // 保存
-    const storedReviews = JSON.parse(localStorage.getItem('soccerReviews') || '[]');
-    storedReviews.push(newReview);
-    localStorage.setItem('soccerReviews', JSON.stringify(storedReviews));
-
-    form.reset();
-    loadReviews();
+      e.target.reset();
+      loadReviews();
+    } catch {
+      alert("投稿に失敗しました。");
+    }
   });
 
-  // 最初の読み込み時に表示
   loadReviews();
 </script>
 
