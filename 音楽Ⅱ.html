@@ -12,7 +12,7 @@
       padding: 0;
     }
     header {
-      background: #2980b9; /* 数学Bと同じ色 */
+      background: #2980b9;
       color: white;
       padding: 1.5rem;
       text-align: center;
@@ -109,7 +109,9 @@
   </a>
 </header>
 
-<div class="review-container" id="review-container"></div>
+<div class="review-container" id="review-container">
+  <!-- コメント一覧 -->
+</div>
 
 <form id="commentForm">
   <h2>感想を書き込む</h2>
@@ -132,7 +134,7 @@
 
 <script>
   const API_BASE = "https://test-revi.onrender.com/api/reviews";
-  const clubKey = "music2"; // ← 教科ごとにここだけ変更
+  const clubKey = "music2"; // ← 音楽Ⅱ用キー
 
   function starsDisplay(num) {
     return '★'.repeat(num) + '☆'.repeat(5 - num);
