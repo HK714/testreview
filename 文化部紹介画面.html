@@ -1,214 +1,215 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <title>文化部紹介</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #fdfdfd;
+      background: #f7f7f7;
       margin: 0;
       padding: 0;
     }
+
     header {
       background: #9b59b6;
       color: white;
-      padding: 2rem;
+      padding: 1.5rem;
       text-align: center;
     }
-    h1 {
+
+    header h1 {
       margin: 0;
+      font-size: 1.8rem;
     }
+
+    header a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: white;
+      font-size: 0.9rem;
+      text-decoration: underline;
+    }
+
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      padding: 1.5rem;
     }
+
     .card {
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-    .card-content {
+      border-radius: 8px;
       padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+
     .card-title {
       font-size: 1.2rem;
+      font-weight: bold;
       margin-bottom: 0.5rem;
+      color: #333;
     }
+
+    .card-content p {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.4;
+    }
+
     a.card-link {
       text-decoration: none;
       color: inherit;
     }
   </style>
 </head>
+
 <body>
 
-  <header>
-    <h1>文化部紹介</h1>
-    <a href="部活選択画面.html" style="color: white; font-size: 0.9rem;">← トップへ戻る</a>
-  </header>
+<header>
+  <h1>文化部紹介</h1>
+  <a href="部活選択画面.html">← トップへ戻る</a>
+</header>
 
-  <div class="container">
+<div class="container">
 
-    <a href="吹奏楽部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/吹奏楽部.html" alt="吹奏楽部">
-        <div class="card-content">
-          <div class="card-title">吹奏楽部</div>
-          <p>演奏会やコンクールに向けて日々練習に励んでいます。</p>
-        </div>
+  <a href="吹奏楽部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">吹奏楽部</div>
+      <div class="card-content">
+        <p>演奏会やコンクールに向けて日々練習に励んでいます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="茶道部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/茶道部.html" alt="茶道部">
-        <div class="card-content">
-          <div class="card-title">茶道部</div>
-          <p>茶の湯の心を学びながら、落ち着いた空間で活動しています。</p>
-        </div>
+  <a href="茶道部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">茶道部</div>
+      <div class="card-content">
+        <p>茶の湯の心を学び、落ち着いた雰囲気の中で活動しています。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-<a href="情報技術研究部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/情報技術研究部.html" alt="情報技術研究部">
-        <div class="card-content">
-          <div class="card-title">情報技術研究部</div>
-          <p>プログラミングやITスキルの習得を目指して活動しています。</p>
-        </div>
+  <a href="情報技術研究部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">情報技術研究部</div>
+      <div class="card-content">
+        <p>プログラミングやIT技術を学び、作品制作に取り組んでいます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="デザイン研究部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/デザイン研究部" alt="デザイン研究部">
-        <div class="card-content">
-          <div class="card-title">デザイン研究部</div>
-          <p>ポスター制作やデジタルアートなど、創造的な表現に挑戦しています。</p>
-        </div>
+  <a href="デザイン研究部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">デザイン研究部</div>
+      <div class="card-content">
+        <p>ポスターやデジタルアートなど、創造的な表現を行っています。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="美術部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/美術部.html" alt="美術部">
-        <div class="card-content">
-          <div class="card-title">美術部</div>
-          <p>絵画や彫刻など様々な美術作品を制作し、展覧会にも参加しています。</p>
-        </div>
+  <a href="美術部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">美術部</div>
+      <div class="card-content">
+        <p>絵画や立体作品を制作し、展覧会にも参加しています。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="文芸部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/文芸部.html" alt="文芸部">
-        <div class="card-content">
-          <div class="card-title">文芸部</div>
-          <p>小説や詩の創作を中心に、文集の発行や読書会なども行っています。</p>
-        </div>
+  <a href="文芸部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">文芸部</div>
+      <div class="card-content">
+        <p>小説や詩の創作、文集の発行などを行っています。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="クッキング部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/クッキング部.html" alt="クッキング部">
-        <div class="card-content">
-          <div class="card-title">クッキング部</div>
-          <p>料理に励んでいます。</p>
-        </div>
+  <a href="クッキング部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">クッキング部</div>
+      <div class="card-content">
+        <p>料理を通して楽しみながら技術を身につけています。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="JRC.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/JRC.html" alt="JRC部">
-        <div class="card-content">
-          <div class="card-title">JRC部</div>
-          <p>敗戦国の末路</p>
-        </div>
+  <a href="JRC.html" class="card-link">
+    <div class="card">
+      <div class="card-title">JRC部</div>
+      <div class="card-content">
+        <p>ボランティア活動を中心に社会貢献を行っています。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="華道部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/華道部.html" alt="華道部">
-        <div class="card-content">
-          <div class="card-title">華道部</div>
-          <p></p>
-        </div>
+  <a href="華道部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">華道部</div>
+      <div class="card-content">
+        <p>花を通して日本の伝統文化を学んでいます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="写真部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/写真部.html" alt="写真部">
-        <div class="card-content">
-          <div class="card-title">写真部</div>
-          <p></p>
-        </div>
+  <a href="写真部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">写真部</div>
+      <div class="card-content">
+        <p>写真撮影を通して表現力を高めています。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-<a href="映像技術研究部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/映像技術研究部.html" alt="映像技術研究部">
-        <div class="card-content">
-          <div class="card-title">映像技術研究部</div>
-          <p>映画作った</p>
-        </div>
+  <a href="映像技術研究部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">映像技術研究部</div>
+      <div class="card-content">
+        <p>映像制作や編集を行い、作品を発表しています。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-<a href="コーラス部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/コーラス部html" alt="コーラス部">
-        <div class="card-content">
-          <div class="card-title">コーラス部</div>
-          <p>頑張ってる</p>
-        </div>
+  <a href="コーラス部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">コーラス部</div>
+      <div class="card-content">
+        <p>合唱を通して美しいハーモニーを追求しています。</p>
       </div>
-    </a>
-<a href="演劇部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/演劇部.html" alt="演劇部">
-        <div class="card-content">
-          <div class="card-title">演劇部</div>
-          <p>頑張ってる</p>
-        </div>
+    </div>
+  </a>
+
+  <a href="演劇部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">演劇部</div>
+      <div class="card-content">
+        <p>舞台表現を学び、演劇公演を行っています。</p>
       </div>
-    </a>
-<a href="放送部.html" class="card-link">
-      <div class="card">
-        <img src="なかじま/放送部.html" alt="放送部">
-        <div class="card-content">
-          <div class="card-title">放送部</div>
-          <p></p>
-        </div>
+    </div>
+  </a>
+
+  <a href="放送部.html" class="card-link">
+    <div class="card">
+      <div class="card-title">放送部</div>
+      <div class="card-content">
+        <p>校内放送や映像制作を担当しています。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-
-
-
-  </div>
+</div>
 
 </body>
 </html>
-
-
-
-
