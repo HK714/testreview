@@ -2,51 +2,59 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>科内選択g選択</title>
+  <title>科内選択 g選択</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #fdfdfd;
+      background: #f7f7f7;
       margin: 0;
       padding: 0;
     }
     header {
-      background: #1abc9c; /* 運動部紹介と同じ色に変更 */
+      background: #1abc9c;
       color: white;
-      padding: 2rem;
+      padding: 1.5rem;
       text-align: center;
     }
-    h1 {
+    header h1 {
       margin: 0;
+      font-size: 1.8rem;
+    }
+    header a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: white;
+      font-size: 0.9rem;
+      text-decoration: underline;
     }
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      padding: 1.5rem;
     }
     .card {
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: 0.3s;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
     .card:hover {
-      transform: translateY(-5px);
-    }
-    .card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-    .card-content {
-      padding: 1rem;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
     }
     .card-title {
       font-size: 1.2rem;
+      font-weight: bold;
       margin-bottom: 0.5rem;
+      color: #333;
+    }
+    .card-content p {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.4;
     }
     a.card-link {
       text-decoration: none;
@@ -56,155 +64,140 @@
 </head>
 <body>
 
-  <header>
-    <h1>科内選択g選択</h1>
-    <a href="科内選択画面.html" style="color: white; font-size: 0.9rem;">← トップへ戻る</a>
-  </header>
+<header>
+  <h1>科内選択 g選択</h1>
+  <a href="科内選択画面.html">← トップへ戻る</a>
+</header>
 
-  <div class="container">
+<div class="container">
 
-    <a href="数学B.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?math" alt="数学B">
-        <div class="card-content">
-          <div class="card-title">数学B</div>
-          <p>数学Bを学びます。</p>
-        </div>
+  <a href="数学B.html" class="card-link">
+    <div class="card">
+      <div class="card-title">数学B</div>
+      <div class="card-content">
+        <p>数学的思考力を深め、応用力を身につけます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="生物基礎.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?biology" alt="生物基礎">
-        <div class="card-content">
-          <div class="card-title">生物基礎</div>
-          <p>生物基礎を学びます。</p>
-        </div>
+  <a href="生物基礎.html" class="card-link">
+    <div class="card">
+      <div class="card-title">生物基礎</div>
+      <div class="card-content">
+        <p>生命の仕組みや自然との関わりを学びます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="論理表現Ⅰ.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?communication" alt="論理表現Ⅰ">
-        <div class="card-content">
-          <div class="card-title">論理表現Ⅰ</div>
-          <p>論理表現Ⅰを学びます。</p>
-        </div>
+  <a href="論理表現Ⅰ.html" class="card-link">
+    <div class="card">
+      <div class="card-title">論理表現Ⅰ</div>
+      <div class="card-content">
+        <p>考えを論理的に表現する力を養います。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="英語総合.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?english" alt="英語総合">
-        <div class="card-content">
-          <div class="card-title">英語総合</div>
-          <p>英語総合を学びます。</p>
-        </div>
+  <a href="英語総合.html" class="card-link">
+    <div class="card">
+      <div class="card-title">英語総合</div>
+      <div class="card-content">
+        <p>読む・書く・話す・聞く力を総合的に伸ばします。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="フランス語コミュニケーション.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?france" alt="フランス語コミュニケーション">
-        <div class="card-content">
-          <div class="card-title">フランス語コミュニケーション</div>
-          <p>フランス語コミュニケーションを学びます。</p>
-        </div>
+  <a href="フランス語コミュニケーション.html" class="card-link">
+    <div class="card">
+      <div class="card-title">フランス語コミュニケーション</div>
+      <div class="card-content">
+        <p>フランス語の基礎的な会話表現を学びます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="中国語コミュニケーション.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?china" alt="中国語コミュニケーション">
-        <div class="card-content">
-          <div class="card-title">中国語コミュニケーション</div>
-          <p>中国語コミュニケーションを学びます。</p>
-        </div>
+  <a href="中国語コミュニケーション.html" class="card-link">
+    <div class="card">
+      <div class="card-title">中国語コミュニケーション</div>
+      <div class="card-content">
+        <p>中国語の発音や簡単な会話を学びます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="音楽Ⅱ.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?music" alt="音楽Ⅱ">
-        <div class="card-content">
-          <div class="card-title">音楽Ⅱ</div>
-          <p>音楽Ⅱを学びます。</p>
-        </div>
+  <a href="音楽Ⅱ.html" class="card-link">
+    <div class="card">
+      <div class="card-title">音楽Ⅱ</div>
+      <div class="card-content">
+        <p>音楽表現や鑑賞を通して感性を磨きます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="美術Ⅰ.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?art" alt="美術Ⅰ">
-        <div class="card-content">
-          <div class="card-title">美術Ⅰ</div>
-          <p>美術Ⅰを学びます。</p>
-        </div>
+  <a href="美術Ⅰ.html" class="card-link">
+    <div class="card">
+      <div class="card-title">美術Ⅰ</div>
+      <div class="card-content">
+        <p>造形表現や作品制作を通して創造力を高めます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="書道Ⅰ.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?calligraphy" alt="書道Ⅰ">
-        <div class="card-content">
-          <div class="card-title">書道Ⅰ</div>
-          <p>書道Ⅰを学びます。</p>
-        </div>
+  <a href="書道Ⅰ.html" class="card-link">
+    <div class="card">
+      <div class="card-title">書道Ⅰ</div>
+      <div class="card-content">
+        <p>文字の美しさと表現力を学びます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="生産技術.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?factory" alt="生産技術">
-        <div class="card-content">
-          <div class="card-title">生産技術</div>
-          <p>生産技術を学びます。</p>
-        </div>
+  <a href="生産技術.html" class="card-link">
+    <div class="card">
+      <div class="card-title">生産技術</div>
+      <div class="card-content">
+        <p>ものづくりの基礎や技術の流れを学びます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="マルチメディア技術.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?computer" alt="マルチメディア技術">
-        <div class="card-content">
-          <div class="card-title">マルチメディア技術</div>
-          <p>マルチメディア技術を学びます。</p>
-        </div>
+  <a href="マルチメディア技術.html" class="card-link">
+    <div class="card">
+      <div class="card-title">マルチメディア技術</div>
+      <div class="card-content">
+        <p>情報技術やデジタル表現について学びます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="クラフトデザイン技術.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?craft" alt="クラフトデザイン技術">
-        <div class="card-content">
-          <div class="card-title">クラフトデザイン技術</div>
-          <p>クラフトデザイン技術を学びます。</p>
-        </div>
+  <a href="クラフトデザイン技術.html" class="card-link">
+    <div class="card">
+      <div class="card-title">クラフトデザイン技術</div>
+      <div class="card-content">
+        <p>デザインと制作を通して表現力を高めます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="ビジネス法規.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?business" alt="ビジネス法規">
-        <div class="card-content">
-          <div class="card-title">ビジネス法規</div>
-          <p>ビジネス法規を学びます。</p>
-        </div>
+  <a href="ビジネス法規.html" class="card-link">
+    <div class="card">
+      <div class="card-title">ビジネス法規</div>
+      <div class="card-content">
+        <p>ビジネスに必要な法律知識を学びます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-    <a href="服飾手芸.html" class="card-link">
-      <div class="card">
-        <img src="https://source.unsplash.com/300x150/?fashion" alt="服飾手芸">
-        <div class="card-content">
-          <div class="card-title">服飾手芸</div>
-          <p>服飾手芸を学びます。</p>
-        </div>
+  <a href="服飾手芸.html" class="card-link">
+    <div class="card">
+      <div class="card-title">服飾手芸</div>
+      <div class="card-content">
+        <p>裁縫やデザインを通して実践力を身につけます。</p>
       </div>
-    </a>
+    </div>
+  </a>
 
-  </div>
+</div>
 
 </body>
 </html>
-
